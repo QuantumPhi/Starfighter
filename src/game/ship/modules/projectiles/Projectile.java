@@ -3,6 +3,7 @@ package game.ship.modules.projectiles;
 import game.network.DataPacket;
 import game.ship.Ship;
 import game.ship.util.Vector;
+import game.util.Point;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
@@ -14,6 +15,7 @@ public abstract class Projectile {
     protected Vector velocity;
     protected double x, y;
     protected double ex, ey;
+    protected Point mask;
     protected int baseDamage;
     protected boolean hitTarget = false;
     
@@ -34,6 +36,8 @@ public abstract class Projectile {
         parentID = si;
         baseDamage = 5;
     }
+          
+    public Point getMask() { return mask; }
     
     public abstract void update(int delta); 
     public abstract void render(Graphics g);

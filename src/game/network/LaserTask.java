@@ -38,7 +38,7 @@ public class LaserTask extends TimerTask {
         for(EnemyShip s : ships) {
             if(s.getID() == laser.getParentID())
                 continue;
-            if(laser.getMask().intersects(s.getMask())) {
+            if(laser.getMask().intersects(s.getMask(), laser.getX(), laser.getY(), laser.getAngle())) {
                 if(!laser.hasHitTarget()) {
                     s.resolveHit(laser);
                     System.out.println("Laser hit registered");
