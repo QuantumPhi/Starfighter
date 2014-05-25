@@ -16,6 +16,7 @@ public abstract class Ship {
     private double speed;
     private double accel;
     private double turn;
+    private double angle;
     private double attack;
     
     private Frame ship;
@@ -28,6 +29,26 @@ public abstract class Ship {
     
     public abstract void update(GameContainer container, int delta);
     public abstract void render(Graphics g);
+    
+    public void accelerate(int delta) {
+        curSpd = curSpd + delta * accel <= speed ? 
+                curSpd + delta * accel : speed;
+    }
+    
+    public void decelerate(int delta) {
+        curSpd = curSpd - delta * accel >= -speed / 2 ? 
+                curSpd - delta * accel : -speed / 2; 
+    }
+    
+    public void turnRight(int delta) {
+        angle = angle + delta * turn < 360 ?
+                angle + delta * turn : 0;
+    }
+    
+    public void turnLeft(int delta) {
+        angle = angle - delta * turn >= 0 ?
+                angle - delta * turn : 360 + (angle - delta * turn);
+    }
     
     public void setID(long i) { id = i; }
     
