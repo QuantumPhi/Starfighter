@@ -66,7 +66,7 @@ public class ClientNetworkHandler {
         
         handshake();
         
-        player = new PlayerShip(myClientId, ShipType.HUMAN_SHIP,projectiles);
+        player = new PlayerShip(myClientId, ShipType.HUMAN_SHIP,projectiles,enemies);
         state.setPlayer(player);
         state.connected();
         
