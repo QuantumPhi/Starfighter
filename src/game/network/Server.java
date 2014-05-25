@@ -139,7 +139,7 @@ public class Server {
                     if (type==-2) {
                         Laser l = new Laser(packet);
                         projectiles.add(l);
-                        new Timer().schedule(new LaserTask(l),0,16);
+                        new Timer().schedule(new LaserTask(l, players),0,16);
                         return;
                     }
                     

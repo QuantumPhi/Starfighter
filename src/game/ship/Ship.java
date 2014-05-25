@@ -4,6 +4,7 @@ import game.network.DataPacket;
 import game.ship.modules.Frame;
 import game.ship.modules.projectiles.Projectile;
 import game.ship.util.Vector;
+import game.util.Circle;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -19,6 +20,7 @@ public abstract class Ship {
     protected double turn;
     protected double accel;
     protected double friction;
+    protected Circle mask;
     
     protected ShipType type;
     
@@ -44,6 +46,7 @@ public abstract class Ship {
     
     public Ship(long i, ShipType type) {
         this(i,type.maxSpeed(),type.getTurn(),type.getAccel());
+        mask = new Circle(type);
         this.type = type;
     }
     
@@ -61,6 +64,8 @@ public abstract class Ship {
     public abstract void render(Graphics g);
     
     public long getID() { return id; }
+    
+    public Circle getMask() { return mask; }
     
     public double getX() { return x; }
     public double getY() { return y; }

@@ -60,6 +60,8 @@ public class Laser extends Projectile {
         img.draw((float)ex,(float)ey,4.0f);
     }
     
+    public Rectangle getMask() { return mask; }
+    
     @Override
     public int getShieldDamage() {
         return baseDamage + damage;
