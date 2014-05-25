@@ -1,7 +1,6 @@
 package game.ship;
 
 import game.network.DataPacket;
-import game.util.resource.ImageLibrary;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -39,6 +38,8 @@ public class EnemyShip extends Ship {
     
     @Override
     public void render(Graphics g) {
+        if (sprite == null)
+            sprite = type.getSprite();
         Image img = sprite.copy();
         img.setCenterOfRotation(32,32);
         img.rotate(-(float)velocity.getAngle()+90);

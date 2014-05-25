@@ -146,7 +146,7 @@ public class Server {
                         continue;
                     
                     players.add(new EnemyShip(packet));
-                    System.out.println("Adding new enemy. ID: " + packet.get(DataPacket.ID));
+                    System.out.println("Adding new enemy. ID: " + packet.getDouble(DataPacket.ID));
                     
                     Runnable r = new ServerSendThread(players,socket,Server.this,
                             recvPacket.getAddress(),recvPacket.getPort(),clientId);
