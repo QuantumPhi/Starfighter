@@ -14,6 +14,7 @@ public class LaserTask extends TimerTask {
     private List<Projectile> projectiles;
     private Timer timer;
     private int counter;
+    private static int num = 0;
     
     public LaserTask(Laser l, List<EnemyShip> s, List<Projectile> p, Timer t) {
         laser = l;
@@ -39,7 +40,7 @@ public class LaserTask extends TimerTask {
             if(laser.getMask().intersects(s.getMask(),laser.getX(),laser.getY(),laser.getAngle())) {
                 if(!laser.hasHitTarget()) {
                     s.resolveHit(laser);
-                    System.out.println("Laser hit registered");
+                    System.out.println("Laser hit #" + num++ + " registered");
                     laser.hitTarget();
                     projectiles.remove(laser);
                 }
