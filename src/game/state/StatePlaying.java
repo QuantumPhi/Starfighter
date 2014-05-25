@@ -17,16 +17,25 @@ public class StatePlaying extends BasicGameState {
     public static final String ip = "127.0.0.1";
     public static final int port = 9999;
     
+    public static final int WORLD_SIZE_X = Game.VIEW_SIZE_X*8;
+    public static final int WORLD_SIZE_Y = Game.VIEW_SIZE_Y*8;
+    
     private int id;
     private ClientNetworkHandler network;
     private PlayerShip player;
     private List<EnemyShip> enemies;
     private boolean ready = false;
     
+    private int camX;
+    private int camY;
+    
     public void connected() { ready = true; }
     public void setPlayer(PlayerShip player) { this.player = player; }
+    
     public StatePlaying(int id) {
         this.id = id;
+        this.camX = 0;
+        this.camY = 0;
     }
     
     @Override
@@ -45,6 +54,12 @@ public class StatePlaying extends BasicGameState {
             g.drawString("Connecting...",Game.VIEW_SIZE_X/2-60,Game.VIEW_SIZE_Y/2-20);
             return;
         }
+        
+        camX = (int)(player.getX()-Game.VIEW_SIZE_X/2);
+        camY = (int)(player.getY()-Game.VIEW_SIZE_Y/2);
+        
+        g.translate(-(float)camX,-(float)camY);
+        
         player.render(g);
         for(EnemyShip e : enemies)
             e.render(g);
