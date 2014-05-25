@@ -7,6 +7,11 @@ import org.newdawn.slick.Input;
 
 public class PlayerShip extends Ship {
 
+    /** @param id ID for ship **/
+    public PlayerShip(long id) {
+        super(id);
+    }
+    
     @Override
     public void update(GameContainer container, int delta) {
         Input input = container.getInput();

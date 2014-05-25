@@ -11,6 +11,8 @@ public abstract class Ship {
     
     private long id;
     
+    private int x, y;
+    
     Image sprite;
     private double curSpd;
     private double speed;
@@ -22,6 +24,11 @@ public abstract class Ship {
     private Frame ship;
     private Weapon[] weapons;
     private Energy core;
+    
+    /** @param i ID for the ship **/
+    public Ship(long i) {
+        id = i;
+    }
     
     public void resolveHit(int damage) {
         ship.resolveHit(damage);
@@ -50,7 +57,8 @@ public abstract class Ship {
                 angle - delta * turn : 360 + (angle - delta * turn);
     }
     
-    public void setID(long i) { id = i; }
-    
     public long getID() { return id; }
+    
+    public int getX() { return x; }
+    public int getY() { return y; }
 }
