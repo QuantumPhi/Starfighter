@@ -6,8 +6,8 @@ import org.newdawn.slick.Image;
 
 public enum ShipType {
     
-    HUMAN_SHIP(ImageLibrary.HUMAN_STARFIGHTER, new Frame(100, 1, 20, 100, 1), 10, 2, 0.01, 8),
-    ALIEN_SHIP(ImageLibrary.ALIEN_STARFIGHTER, new Frame(100, 1, 20, 100, 1), 10, 2, 0.01, 8);
+    HUMAN_SHIP(ImageLibrary.HUMAN_STARFIGHTER, new Frame(100, 1, 20, 100, 1), 10, 2, 0.01, 16),
+    ALIEN_SHIP(ImageLibrary.ALIEN_STARFIGHTER, new Frame(100, 1, 20, 100, 1), 10, 2, 0.01, 16);
     
     private ImageLibrary sprite;
     private Frame frame;

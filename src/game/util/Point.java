@@ -9,7 +9,7 @@ public class Point {
         y = py;
     }
     
-    public boolean intersects(Circle other, double cx, double cy, double angle) {
-        return other.isInCircle(cx + 4*x*Math.cos(angle), cy + 4*y*Math.sin(angle));
+    public boolean intersects(Circle other, double lx, double ly, double angle) {
+        return other.isInCircle(lx+x*Math.cos(Math.toRadians(angle)),ly+y*Math.sin(Math.toRadians(angle)));
     }
 }

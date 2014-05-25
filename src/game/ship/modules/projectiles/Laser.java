@@ -10,7 +10,7 @@ import org.newdawn.slick.Image;
 
 public class Laser extends Projectile {
     
-    private static final double SPEED = 30;
+    private static final double SPEED = 20;
     private static long lasersCreated = 0;
     private int damage;
         
@@ -74,5 +74,5 @@ public class Laser extends Projectile {
         return baseDamage;
     }
     
-    public Point getMask() { return mask; }
+    @Override public Point getMask() { return mask; }
 }

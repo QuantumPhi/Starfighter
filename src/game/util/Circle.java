@@ -12,7 +12,7 @@ public class Circle {
     }
     
     public boolean isInCircle(double ox, double oy) {
-        return Math.hypot(x - ox, y - ox) <= radius*4;
+        return Math.hypot(x-ox,y-ox) <= radius;
     }
     
     public double getRadius() { return radius; }

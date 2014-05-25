@@ -25,10 +25,8 @@ public class LaserTask extends TimerTask {
     
     @Override
     public void run() {
-        System.out.println(counter);
         counter++;
-        if (counter > 5) {
-            System.out.println("done");
+        if (counter > 40) {
             projectiles.remove(laser);
             timer.cancel();
             timer.purge();
@@ -38,7 +36,7 @@ public class LaserTask extends TimerTask {
         for(EnemyShip s : ships) {
             if(s.getID() == laser.getParentID())
                 continue;
-            if(laser.getMask().intersects(s.getMask(), laser.getX(), laser.getY(), laser.getAngle())) {
+            if(laser.getMask().intersects(s.getMask(),laser.getX(),laser.getY(),laser.getAngle())) {
                 if(!laser.hasHitTarget()) {
                     s.resolveHit(laser);
                     System.out.println("Laser hit registered");
@@ -47,7 +45,5 @@ public class LaserTask extends TimerTask {
                 }
             }
         }
-        timer.cancel();
-        timer.purge();
     }
 }
