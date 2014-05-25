@@ -37,4 +37,9 @@ public class EnemyShip extends Ship {
         sprite = ImageLibrary.HUMAN_STARFIGHTER.getImage();
         g.drawImage(sprite,(float)ex,(float)ey);
     }
+    
+    @Override
+    public boolean equals(Object o) {
+        return id == ((Ship)o).getID();
+    }
 }
