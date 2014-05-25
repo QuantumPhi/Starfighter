@@ -24,7 +24,7 @@ public abstract class Ship {
     
     protected ShipType type;
     
-    protected Frame ship;
+    protected Frame shipFrame;
     
     public ShipType getType() { return type; }
     
@@ -46,6 +46,7 @@ public abstract class Ship {
     
     public Ship(long i, ShipType type) {
         this(i,type.maxSpeed(),type.getTurn(),type.getAccel());
+        shipFrame = type.getFrame();
         mask = new Circle(type);
         this.type = type;
     }
@@ -58,7 +59,7 @@ public abstract class Ship {
     }
     
     public void resolveHit(Projectile p) {
-        ship.resolveHit(p);
+        shipFrame.resolveHit(p);
     }
     
     public abstract void update(GameContainer container, int delta);

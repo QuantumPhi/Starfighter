@@ -12,6 +12,8 @@ public class Vector {
     
     public void accelerate(double accel, int delta, double limit) {
         speed = Math.min(speed + accel * delta, maxSpd);
+        if(Math.abs(speed) <= 0.1)
+            speed = 0;
     }
     
     public void decelerate(double decel, int delta, double limit) {
