@@ -81,8 +81,10 @@ public class StatePlaying extends BasicGameState {
         
         for(EnemyShip e : enemies)
             e.render(g);
-        for(Projectile p : player.getProjectiles())
+        for(Projectile p : projectiles)
             p.render(g);
+                
+        g.drawString("Ping: " + network.getPing(),camX+Game.VIEW_SIZE_X-120,camY+40);
     }
     
     @Override
@@ -94,7 +96,7 @@ public class StatePlaying extends BasicGameState {
         
         for(EnemyShip e : enemies)
             e.update(container,delta);
-        for(Projectile p : player.getProjectiles())
+        for(Projectile p : projectiles)
             p.update(delta);
     }
     

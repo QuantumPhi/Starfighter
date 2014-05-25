@@ -106,7 +106,7 @@ public class Server {
                 iteration++;
                 for (Map.Entry<Integer,Long> entry : ping.entrySet()) {
                     long oldIteration = entry.getValue();
-                    if (iteration-oldIteration > 5) {
+                    if (iteration-oldIteration > 25) {
                         killIds.add(entry.getKey());
                         ping.remove(entry.getKey());
                     }
@@ -132,6 +132,8 @@ public class Server {
                     
                     packet = new DataPacket(recvPacket.getData());
                     clientId = (int) packet.getClient();
+                                        
+                    ping.put(clientId,iteration);
                     
                     int type = packet.getInt(DataPacket.TYPE);
                     
@@ -139,8 +141,8 @@ public class Server {
                     if (type==42) {
                         Laser l = new Laser(packet);
                         projectiles.add(l);
-                        new Timer().schedule(new LaserTask(l, players),0,16);
-                        return;
+                        new Timer().schedule(new LaserTask(l, players),16,100);
+                        continue;
                     }
                     
                     // Missile
@@ -148,13 +150,12 @@ public class Server {
                         Missile m = new Missile(packet);
                         projectiles.add(m);
                         new Timer().schedule(new MissileTask(m,players),0,16);
-                        return;
+                        continue;
                     }
                     
                     updated = false;
                     for (EnemyShip e : players) {
                         if (e.getID() == clientId) {
-                            ping.put(clientId,iteration);
                             packet.update(e);
                             updated = true;
                             break;

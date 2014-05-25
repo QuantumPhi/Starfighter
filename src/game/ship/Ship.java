@@ -55,6 +55,7 @@ public abstract class Ship {
         id = (long)p.getClient();
         type = ShipType.values()[p.getInt(DataPacket.TYPE)];
         mask = new Circle(type);
+        shipFrame = type.getFrame();
         velocity = new Vector(type.maxSpeed());
     }
     
