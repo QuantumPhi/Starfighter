@@ -54,7 +54,7 @@ public class StatePlaying extends BasicGameState {
         
         for (int i=0;i<4000;i++) {
             stars.add(new Star((int)(Math.random()*WORLD_SIZE_X),
-                    (int)(Math.random()*WORLD_SIZE_Y),(int)(Math.random()*5)));
+                    (int)(Math.random()*WORLD_SIZE_Y),(int)(5+Math.random()*5)));
         }
     }
     
