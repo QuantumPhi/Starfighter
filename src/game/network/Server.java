@@ -1,6 +1,9 @@
 package game.network;
 
 import game.ship.EnemyShip;
+import game.ship.modules.projectiles.Laser;
+import game.ship.modules.projectiles.Missile;
+import game.ship.modules.projectiles.Projectile;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.DatagramPacket;
@@ -24,6 +27,7 @@ public class Server {
     private List<EnemyShip> players;
     private Map<Integer,Long> ping;
     private List<Integer> killIds;
+    private List<Projectile> projectiles;
     private boolean running = true;
     private long iteration;
     
@@ -33,6 +37,7 @@ public class Server {
     
     public Server(int port) {
         players = new CopyOnWriteArrayList<EnemyShip>();
+        projectiles = new CopyOnWriteArrayList<Projectile>();
         ping = new ConcurrentHashMap<Integer,Long>();
         killIds = new ArrayList<Integer>();
         iteration = 0;
@@ -95,7 +100,6 @@ public class Server {
         });
         handshakeThread.start();
         
-        // Kicks dc'ed clients.
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -129,11 +133,22 @@ public class Server {
                     packet = new DataPacket(recvPacket.getData());
                     clientId = (int) packet.getClient();
                     
-                    //System.out.println(clientId);
+                    int type = packet.getInt(DataPacket.TYPE);
+                    
+                    // Laser
+                    if (type==-2) {
+                        projectiles.add(new Laser(packet));
+                        return;
+                    }
+                    
+                    // Missile
+                    if (type==-1) {
+                        projectiles.add(new Missile(packet));
+                        return;
+                    }
                     
                     updated = false;
                     for (EnemyShip e : players) {
-                        //System.out.println(e.getID());
                         if (e.getID() == clientId) {
                             ping.put(clientId,iteration);
                             packet.update(e);
