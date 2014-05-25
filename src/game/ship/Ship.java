@@ -35,6 +35,10 @@ public abstract class Ship {
         friction = accel / 0.25;
     }
     
+    public Ship(long i) {
+        id = i;
+    }
+    
     public Ship(long i, ShipType type) {
         this(i, type.maxSpeed(), type.getTurn(), type.getAccel());
         sprite = type.getSprite();

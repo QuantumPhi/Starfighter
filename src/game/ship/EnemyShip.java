@@ -4,6 +4,7 @@ import game.network.DataPacket;
 import game.util.resource.ImageLibrary;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
 public class EnemyShip extends Ship {
     
@@ -20,6 +21,10 @@ public class EnemyShip extends Ship {
         super(id, type);
     }
     
+    public EnemyShip(long id) {
+        super(id);
+    }
+    
     /** @param pkt Data packet containing ship data **/
     public EnemyShip(DataPacket pkt) {
         super(pkt);
@@ -34,7 +39,9 @@ public class EnemyShip extends Ship {
     
     @Override
     public void render(Graphics g) {
-        sprite = ImageLibrary.HUMAN_STARFIGHTER.getImage();
-        g.drawImage(sprite,(float)ex,(float)ey);
+        Image img = sprite.copy();
+        img.setCenterOfRotation(32,32);
+        img.rotate(-(float)velocity.getAngle()+90);
+        img.draw((float)x,(float)y,4.0f);
     }
 }
