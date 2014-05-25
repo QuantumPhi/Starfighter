@@ -15,7 +15,7 @@ public class Game extends StateBasedGame {
     public static final int VIEW_SIZE_Y = 512;
     
     public Game() {
-        super("Journey of Fear");
+        super("Starfighter");
     }
     
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class Game extends StateBasedGame {
     
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
-        this.addState(new StatePlaying(STATE_MENU));;
+        this.addState(new StatePlaying(STATE_MENU));
     }
     
     /** Sets up the window. */
