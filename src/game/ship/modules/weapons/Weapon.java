@@ -1,24 +1,23 @@
 package game.ship.modules.weapons;
 
+import game.ship.Ship;
 import game.ship.modules.projectiles.Projectile;
-import game.ship.util.Vector;
 
 public abstract class Weapon {
     
-    protected Projectile projectile;
-    protected Vector velocity;
+    protected Projectile template;
     
     /**
-     * @param p Projectile of weapon
+     * @param projectile Projectile of weapon
      */
-    public Weapon(Projectile p) {
-        projectile = p;
+    public Weapon(Projectile projectile) {
+        template = projectile;
     }
     
     public abstract void update();
     public abstract void render();
     
-    public abstract void fire();
+    public abstract void fire(Ship s);
     
-    public int getDamage() { return projectile.getBaseDamage(); }
+    public int getDamage() { return template.getBaseDamage(); }
 }

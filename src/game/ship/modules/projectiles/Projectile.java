@@ -12,13 +12,10 @@ public abstract class Projectile {
         sprite = s;
     }
     
-    public void update(int delta) {
-        
-    }
+    public abstract void update(int delta); 
+    public abstract void render(Graphics g);
     
-    public void render(Graphics g) {
-        
-    }
+    public abstract Projectile createProjectile();
     
     public int getBaseDamage() { return baseDamage; }
     public abstract int getShieldDamage();

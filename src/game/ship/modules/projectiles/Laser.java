@@ -1,6 +1,8 @@
 package game.ship.modules.projectiles;
 
 import game.ship.modules.projectiles.Projectile;
+import game.util.resource.ImageLibrary;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 public class Laser extends Projectile {
@@ -9,6 +11,11 @@ public class Laser extends Projectile {
     
     public Laser(Image image) {
         super(image);
+    }
+    
+    @Override
+    public Projectile createProjectile() {
+        return new Laser(ImageLibrary.LASER.getImage());
     }
 
     @Override
@@ -19,5 +26,13 @@ public class Laser extends Projectile {
     @Override
     public int getHullDamage() {
         return baseDamage;
+    }
+
+    @Override
+    public void update(int delta) {
+    }
+
+    @Override
+    public void render(Graphics g) {
     }
 }
