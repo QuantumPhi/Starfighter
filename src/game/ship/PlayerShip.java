@@ -13,6 +13,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Ellipse;
 
 public class PlayerShip extends Ship {
 
@@ -78,6 +79,10 @@ public class PlayerShip extends Ship {
         img.setCenterOfRotation(32,32);
         img.rotate(-(float)velocity.getAngle()+90);
         img.draw((float)x,(float)y,4.0f);
+        if(flare == 2000) {
+            //g.draw(new Ellipse(img.getCenterOfRotationX(), img.getCenterOfRotationY(), (float)(mask.getRadius() * 4.0), (float)(mask.getRadius() * 4.0)));
+            g.fillOval((float)(x - mask.getRadius()*2), (float)(y - mask.getRadius()*2), (float)(mask.getRadius() * 12.0), (float)(mask.getRadius() * 12.0));
+        }
     }
     
     public Queue<Projectile> getProjectileQueue() { return projectileQueue; }

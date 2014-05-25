@@ -21,6 +21,7 @@ public abstract class Ship {
     protected double accel;
     protected double friction;
     protected Circle mask;
+    protected int flare = 2000;
     
     protected ShipType type;
     
@@ -59,6 +60,8 @@ public abstract class Ship {
     }
     
     public void resolveHit(Projectile p) {
+        if(shipFrame.getShield().integrity() != 0)
+            flare = 2000;
         shipFrame.resolveHit(p);
     }
     
