@@ -6,8 +6,11 @@ import org.newdawn.slick.Graphics;
 
 public class EnemyShip extends Ship {
     
-    private int estX, estY;
-
+    private double ex,ey;
+    
+    @Override public void setX(double px) { x = px; ex = px; }
+    @Override public void setY(double py) { y = py; ey = py; }
+    
     /** @param id ID for ship **/
     public EnemyShip(long id) {
         super(id);
@@ -21,10 +24,12 @@ public class EnemyShip extends Ship {
     
     @Override
     public void update(GameContainer container, int delta) {
-        
+        ex += velocity.getSpeed()*Math.cos(velocity.getAngle()*Math.PI/180);
+        ey -= velocity.getSpeed()*Math.sin(velocity.getAngle()*Math.PI/180);
     }
-
+    
     @Override
     public void render(Graphics g) {
+        g.drawImage(sprite,(float)ex,(float)ey);
     }
 }
