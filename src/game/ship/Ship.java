@@ -50,6 +50,8 @@ public abstract class Ship {
         this(i,type.maxSpeed(),type.getTurn(),type.getAccel());
         shipFrame = type.getFrame();
         mask = new Circle(type);
+        mask.setX(x);
+        mask.setY(y);
         this.type = type;
     }
     
@@ -57,6 +59,8 @@ public abstract class Ship {
         id = (long)p.getClient();
         type = ShipType.values()[p.getInt(DataPacket.TYPE)];
         mask = new Circle(type);
+        mask.setX(x);
+        mask.setY(y);
         shipFrame = type.getFrame();
         velocity = new Vector(type.maxSpeed());
     }

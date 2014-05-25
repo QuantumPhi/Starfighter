@@ -137,11 +137,13 @@ public class Server {
                     
                     int type = packet.getInt(DataPacket.TYPE);
                     
+                    Timer t;
                     // Laser
                     if (type==42) {
                         Laser l = new Laser(packet);
                         projectiles.add(l);
-                        new Timer().schedule(new LaserTask(l, players),16,100);
+                        t = new Timer();
+                        t.schedule(new LaserTask(l, players, projectiles, t),16,100);
                         continue;
                     }
                     
@@ -149,7 +151,8 @@ public class Server {
                     if (type==1337) {
                         Missile m = new Missile(packet);
                         projectiles.add(m);
-                        new Timer().schedule(new MissileTask(m,players),0,16);
+                        t = new Timer();
+                        t.schedule(new MissileTask(m,players, projectiles, t),0,16);
                         continue;
                     }
                     

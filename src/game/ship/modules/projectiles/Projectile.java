@@ -15,6 +15,7 @@ public abstract class Projectile {
     protected double x, y;
     protected double ex, ey;
     protected int baseDamage;
+    protected boolean hitTarget = false;
     
     public Projectile(Image s) {
         sprite = s;
@@ -54,6 +55,9 @@ public abstract class Projectile {
     public int getBaseDamage() { return baseDamage; }
     public abstract int getShieldDamage();
     public abstract int getHullDamage();
+    
+    public void hitTarget() { hitTarget = true; }
+    public boolean hasHitTarget() { return hitTarget; }
     
     @Override
     public boolean equals(Object o) {

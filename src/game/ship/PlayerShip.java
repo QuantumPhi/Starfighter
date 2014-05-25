@@ -75,6 +75,9 @@ public class PlayerShip extends Ship {
         
         x += velocity.getSpeed()*Math.cos(velocity.getAngle()*Math.PI/180);
         y -= velocity.getSpeed()*Math.sin(velocity.getAngle()*Math.PI/180);
+        
+        mask.setX(x);
+        mask.setY(y);
     }
 
     @Override

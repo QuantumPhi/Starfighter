@@ -19,4 +19,7 @@ public class Circle {
     public double getRadius() { return radius; }
     public double getX() { return x; }
     public double getY() { return y; }
+    
+    public void setX(double px) { x = px; }
+    public void setY(double py) { y = py; }
 }
