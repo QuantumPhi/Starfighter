@@ -10,13 +10,12 @@ public class Frame {
      * @param is Health of the shields
      * @param rs Regeneration rate of the shields
      * @param ih Health of the hull
-     * @param rh Regeneration rate of the hull
      * @param ee Energy of the core
      * @param re Regeneration rate of the core
      */
-    public Frame(int is, int rs, int ih, int rh, int ee, int re) {
+    public Frame(int is, int rs, int ih, int ee, int re) {
         shield = new Shield(is, rs);
-        hull = new Hull(ih, rh);
+        hull = new Hull(ih);
         core = new Energy(ee, re);
     }
     

@@ -17,7 +17,6 @@ public abstract class Ship {
     protected Vector velocity;
     protected double turn;
     protected double accel;
-    protected double attack;
     
     protected Frame ship;
     protected Weapon[] weapons;
@@ -33,7 +32,11 @@ public abstract class Ship {
     
     public Ship(long i, ShipType type) {
         id = i;
-        velocity = new Vector();
+        sprite = type.getSprite();
+        velocity = new Vector(type.maxSpeed());
+        turn = type.getTurn();
+        accel = type.getAccel();
+        
     }
     
     public void resolveHit(int damage) {
