@@ -9,6 +9,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Ellipse;
 
 public abstract class Ship {
     
@@ -72,7 +73,18 @@ public abstract class Ship {
     }
     
     public abstract void update(GameContainer container, int delta);
-    public abstract void render(Graphics g);
+    
+    public void render(Graphics g) {
+        if (sprite == null)
+            sprite = type.getSprite();
+        Image img = sprite.copy();
+        img.setCenterOfRotation(32,32);
+        img.rotate(-(float)velocity.getAngle()+90);
+        img.draw((float)x,(float)y,4.0f);
+        g.setColor(new Color(1f,1f,1f,flare/100f));
+        g.fill(new Ellipse((float)x+32,(float)y+32,48,48));
+        renderBars(g);
+    }
     
     public long getID() { return id; }
     
