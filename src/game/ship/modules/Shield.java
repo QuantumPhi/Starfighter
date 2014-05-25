@@ -4,10 +4,10 @@ import game.ship.properties.Regenerable;
 
 public class Shield implements Regenerable {
     
-    private int maxInt;
-    private int integrity;
-    private int regen;
-    private int recentDamage = 500;
+    public int maxInt;
+    public int integrity;
+    public int regen;
+    public int recentDamage = 500;
     
     /** 
      * @param i Health of the shield

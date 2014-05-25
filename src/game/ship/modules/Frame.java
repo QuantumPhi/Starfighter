@@ -4,9 +4,9 @@ import game.ship.modules.projectiles.Projectile;
 
 public class Frame {
     
-    private Shield shield;
-    private Hull hull;
-    private Energy core;
+    public Shield shield;
+    public Hull hull;
+    public Energy core;
     
     /**
      * @param is Health of the shields
@@ -22,10 +22,10 @@ public class Frame {
     }
     
     public void resolveHit(Projectile p) {
-        int dmgS = shield.integrity() - p.getShieldDamage();
-        int dmgH = dmgS < 0 ? (int)((p.getShieldDamage() + dmgS) / (double)(p.getShieldDamage()) / p.getHullDamage()) : 0;
-        shield.resolveHit(dmgS < 0 ? shield.integrity() : dmgS);
-        hull.resolveHit(dmgH);
+        if (shield.integrity > 0)
+            shield.integrity = Math.max(shield.integrity-p.getShieldDamage(),0);
+        else
+            hull.integrity = Math.max(hull.integrity-p.getHullDamage(),0);
     }
     
     public void regenShields() {

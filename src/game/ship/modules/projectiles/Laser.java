@@ -14,7 +14,7 @@ public class Laser extends Projectile {
     private static long lasersCreated = 0;
     private int damage;
     private Rectangle mask = new Rectangle(7, 0, 8, 15);
-    
+        
     public Laser() {
         super(ImageLibrary.LASER.getImage());
     }

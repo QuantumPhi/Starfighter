@@ -2,9 +2,9 @@ package game.ship.modules;
 
 public class Energy {
     
-    private int maxEn;
-    private int energy;
-    private int regen;
+    public int maxEn;
+    public int energy;
+    public int regen;
     
     /**
      * @param e Energy of the ship

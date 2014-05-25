@@ -1,5 +1,6 @@
 package game.ship;
 
+import game.ship.modules.projectiles.Laser;
 import game.ship.modules.projectiles.Projectile;
 import game.ship.modules.weapons.LaserCannon;
 import game.ship.modules.weapons.MissileLauncher;
@@ -8,6 +9,7 @@ import game.util.Options;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -40,6 +42,9 @@ public class PlayerShip extends Ship {
         
         Input input = container.getInput();
         
+        if (flare>0)
+            flare--;
+        
         if(input.isKeyDown(Options.SPEED_UP.key()))
             velocity.accelerate(accel,delta, velocity.getAccelLimit());
         else if(input.isKeyDown(Options.SLOW_DOWN.key()))
@@ -54,6 +59,10 @@ public class PlayerShip extends Ship {
             currentWeapon++;
             currentWeapon %= weapons.length;
         }
+        
+        if (input.isKeyPressed(Input.KEY_5))
+            resolveHit(new Laser());
+        
         if(input.isKeyPressed(Options.FIRE_WEAPON.key())) {
             Projectile p = weapons[currentWeapon].fire(this);
             if(p != null) {
@@ -61,8 +70,6 @@ public class PlayerShip extends Ship {
                 projectileQueue.add(p);
             }
         }
-        
-        flare = Math.max(flare - delta, 0);
         
         weapons[currentWeapon].update(delta);
         
@@ -76,9 +83,10 @@ public class PlayerShip extends Ship {
         img.setCenterOfRotation(32,32);
         img.rotate(-(float)velocity.getAngle()+90);
         img.draw((float)x,(float)y,4.0f);
-        if(flare == 2000) {
-            g.draw(/*Image*/, x, y, /*Alpha from flare*/);
-        }
+        System.out.println(flare);
+        g.setColor(new Color(1f,1f,1f,flare/100f));
+        g.fill(new Ellipse((float)x+32,(float)y+32,48,48));
+        renderBars(g);
     }
     
     public Queue<Projectile> getProjectileQueue() { return projectileQueue; }
