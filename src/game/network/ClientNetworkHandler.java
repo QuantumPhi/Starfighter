@@ -37,8 +37,9 @@ public class ClientNetworkHandler {
     private long responseTime = -1;
     
     private long ping;
+    private long currentPing;
     
-    public long getPing() { return ping; }
+    public long getPing() { return currentPing; }
     
     public ClientNetworkHandler(String ip, int port, PlayerShip player, List<EnemyShip> enemies,
             List<Projectile> projectiles, StatePlaying state) {
@@ -148,6 +149,7 @@ public class ClientNetworkHandler {
                 Queue<Projectile> pq = player.getProjectileQueue();
                 while (running) {
                     ping = System.currentTimeMillis()-responseTime;
+                    currentPing = ping;
                     if (responseTime != -1 && ping > 10000) {
                         System.out.println("Disconnecting.");
                         running = false;

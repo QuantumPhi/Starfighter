@@ -5,6 +5,7 @@ import game.ship.modules.Frame;
 import game.ship.modules.projectiles.Projectile;
 import game.ship.util.Vector;
 import game.util.Circle;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -21,7 +22,7 @@ public abstract class Ship {
     protected double accel;
     protected double friction;
     protected Circle mask;
-    protected int flare = 2000;
+    protected int flare = 0;
     
     protected ShipType type;
     
@@ -66,7 +67,7 @@ public abstract class Ship {
     
     public void resolveHit(Projectile p) {
         if(shipFrame.getShield().integrity() != 0)
-            flare = 2000;
+            flare += 5*p.getShieldDamage();
         shipFrame.resolveHit(p);
     }
     
@@ -92,5 +93,21 @@ public abstract class Ship {
         if(o == null || !(o instanceof Ship))
             return false;
         return id == ((Ship)o).getID();
+    }
+    
+    public void renderBars(Graphics g) {
+        int maxShield = shipFrame.shield.maxInt;
+        int currentShield = shipFrame.shield.integrity;
+        
+        int maxHull = shipFrame.hull.maxInt;
+        int currentHull = shipFrame.hull.integrity;
+        
+        g.setColor(Color.blue);
+        g.drawRect((float)(x-40),(float)(y+70),144,10);
+        g.fillRect((float)(x-40),(float)(y+70),144f*currentShield/maxShield,10);
+        
+        g.setColor(Color.green);
+        g.drawRect((float)(x-40),(float)(y+85),144,10);
+        g.fillRect((float)(x-40),(float)(y+85),144f*currentHull/maxHull,10);
     }
 }

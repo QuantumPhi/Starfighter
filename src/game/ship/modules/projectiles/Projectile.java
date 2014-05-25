@@ -19,17 +19,20 @@ public abstract class Projectile {
     
     public Projectile(Image s) {
         sprite = s;
+        baseDamage = 5;
     }
     
     public Projectile(DataPacket p) {
         id = (long)p.getClient();
         parentID = (long)p.getDouble(DataPacket.PARENT);
+        baseDamage = 5;
     }
     
     public Projectile(long i, long si, Image s) {
         this(s);
         id = i;
         parentID = si;
+        baseDamage = 5;
     }
     
     public abstract void update(int delta); 

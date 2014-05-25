@@ -84,7 +84,7 @@ public class StatePlaying extends BasicGameState {
         for(Projectile p : projectiles)
             p.render(g);
                 
-        g.drawString("Ping: " + network.getPing(),camX+Game.VIEW_SIZE_X-120,camY+40);
+        g.drawString("Ping: " + network.getPing(),camX+Game.VIEW_SIZE_X-100,camY+10);
     }
     
     @Override

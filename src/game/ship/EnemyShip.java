@@ -45,6 +45,7 @@ public class EnemyShip extends Ship {
         Image img = sprite.copy();
         img.setCenterOfRotation(32,32);
         img.rotate(-(float)velocity.getAngle()+90);
-        img.draw((float)x,(float)y,4.0f);
+        img.draw((float)ex,(float)ey,4.0f);
+        renderBars(g);
     }
 }
