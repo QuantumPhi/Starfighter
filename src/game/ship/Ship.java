@@ -3,27 +3,26 @@ package game.ship;
 import game.ship.modules.Energy;
 import game.ship.modules.Frame;
 import game.ship.modules.Weapon;
+import game.ship.util.Vector;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 public abstract class Ship {
     
-    private long id;
+    protected long id;
     
-    private int x, y;
+    protected double x, y;
     
-    Image sprite;
-    private double curSpd;
-    private double speed;
-    private double accel;
-    private double turn;
-    private double angle;
-    private double attack;
+    protected Image sprite;
+    protected Vector velocity;
+    protected double turn;
+    protected double accel;
+    protected double attack;
     
-    private Frame ship;
-    private Weapon[] weapons;
-    private Energy core;
+    protected Frame ship;
+    protected Weapon[] weapons;
+    protected Energy core;
     
     /** @param i ID for the ship **/
     public Ship(long i) {
@@ -37,28 +36,15 @@ public abstract class Ship {
     public abstract void update(GameContainer container, int delta);
     public abstract void render(Graphics g);
     
-    public void accelerate(int delta) {
-        curSpd = curSpd + delta * accel <= speed ? 
-                curSpd + delta * accel : speed;
-    }
-    
-    public void decelerate(int delta) {
-        curSpd = curSpd - delta * accel >= -speed / 2 ? 
-                curSpd - delta * accel : -speed / 2; 
-    }
-    
-    public void turnRight(int delta) {
-        angle = angle + delta * turn < 360 ?
-                angle + delta * turn : 0;
-    }
-    
-    public void turnLeft(int delta) {
-        angle = angle - delta * turn >= 0 ?
-                angle - delta * turn : 360 + (angle - delta * turn);
-    }
-    
     public long getID() { return id; }
     
-    public int getX() { return x; }
-    public int getY() { return y; }
+    public double getX() { return x; }
+    public double getY() { return y; }
+    public double getSpeed() { return velocity.getSpeed(); }
+    public double getAngle() { return velocity.getAngle(); }
+    
+    public void setX(double px) { x = px; }
+    public void setY(double py) { y = py; }
+    public void setSpeed(double speed) { velocity.setSpeed(speed); }
+    public void setAngle(double angle) { velocity.setAngle(angle); }
 }

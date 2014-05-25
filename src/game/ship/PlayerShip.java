@@ -16,9 +16,9 @@ public class PlayerShip extends Ship {
     public void update(GameContainer container, int delta) {
         Input input = container.getInput();
         if(input.isKeyPressed(Options.SPEED_UP.key()))
-            accelerate(delta);
+            velocity.accelerate(accel, delta);
         if(input.isKeyPressed(Options.SLOW_DOWN.key()))
-            decelerate(delta);
+            velocity.decelerate(accel, delta);
     }
 
     @Override
