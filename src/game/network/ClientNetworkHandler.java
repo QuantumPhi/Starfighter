@@ -2,6 +2,7 @@ package game.network;
 
 import game.ship.EnemyShip;
 import game.ship.PlayerShip;
+import game.ship.ShipType;
 import game.state.StatePlaying;
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,7 +52,7 @@ public class ClientNetworkHandler {
         
         handshake();
         
-        player = new PlayerShip(myClientId, 10);
+        player = new PlayerShip(myClientId, ShipType.HUMAN_SHIP);
         state.setPlayer(player);
         state.connected();
         

@@ -1,6 +1,7 @@
 package game.network;
 
 import game.ship.EnemyShip;
+import game.ship.ShipType;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.DatagramPacket;
@@ -45,7 +46,7 @@ public class Server {
     
     public void killId(int id) {
         killIds.remove(new Integer(id));
-        players.remove(new EnemyShip(id, 10));
+        players.remove(new EnemyShip(id, ShipType.HUMAN_SHIP));
     }
     
     public void start() {

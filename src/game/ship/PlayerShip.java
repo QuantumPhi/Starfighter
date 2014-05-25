@@ -1,7 +1,6 @@
 package game.ship;
 
 import game.util.Options;
-import game.util.resource.ImageLibrary;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -11,11 +10,10 @@ public class PlayerShip extends Ship {
 
     /** 
      * @param id ID for the ship 
-     * @param maxSpeed Maximum speed of the ship
+     * @param type Type of the ship
      **/
-    public PlayerShip(long id, double maxSpeed) {
-        super(id, maxSpeed);
-        sprite = ImageLibrary.HUMAN_STARFIGHTER.getImage();
+    public PlayerShip(long id, ShipType type) {
+        super(id, type);
     }
     
     @Override

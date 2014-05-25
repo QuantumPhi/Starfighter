@@ -1,5 +1,6 @@
 package game.ship;
 
+import game.network.DataPacket;
 import game.ship.modules.Frame;
 import game.ship.modules.Weapon;
 import game.ship.util.Vector;
@@ -17,6 +18,7 @@ public abstract class Ship {
     protected Vector velocity;
     protected double turn;
     protected double accel;
+    protected double friction;
     
     protected Frame ship;
     protected Weapon[] weapons;
@@ -25,20 +27,21 @@ public abstract class Ship {
      * @param i ID for the ship 
      * @param maxSpeed Maximum speed of the ship
      **/
-    public Ship(long i, double maxSpeed) {
+    private Ship(long i, double maxSpeed, double t, double a) {
         id = i;
         velocity = new Vector(maxSpeed);
-        turn = 2;
-        accel = 0.01;
+        turn = t;
+        accel = a;
+        friction = accel / 0.25;
     }
     
     public Ship(long i, ShipType type) {
-        id = i;
+        this(i, type.maxSpeed(), type.getTurn(), type.getAccel());
         sprite = type.getSprite();
-        velocity = new Vector(type.maxSpeed());
-        turn = type.getTurn();
-        accel = type.getAccel();
-        
+    }
+    
+    public Ship(DataPacket pkt) {
+        this((long)pkt.get(DataPacket.ID), pkt.get(DataPacket.SPEED), 0, 0);
     }
     
     public void resolveHit(int damage) {
