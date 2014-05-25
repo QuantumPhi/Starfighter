@@ -8,7 +8,6 @@ import game.util.Options;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.CopyOnWriteArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -22,15 +21,11 @@ public class PlayerShip extends Ship {
     private Queue<Projectile> projectileQueue;
     private List<Projectile> projectiles;
     
-    /** 
-     * @param id ID for the ship 
-     * @param type Type of the ship
-     **/
-    public PlayerShip(long id, ShipType type) {
+    public PlayerShip(long id, ShipType type, List<Projectile> newProjectiles) {
         super(id,type);
         sprite = type.getSprite();
         projectileQueue = new ConcurrentLinkedQueue<>();
-        projectiles = new CopyOnWriteArrayList<>();
+        projectiles = newProjectiles;
         initWeapons();
     }
     
@@ -86,5 +81,4 @@ public class PlayerShip extends Ship {
     }
     
     public Queue<Projectile> getProjectileQueue() { return projectileQueue; }
-    public List<Projectile> getProjectiles() { return projectiles; }
 }

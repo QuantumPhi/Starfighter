@@ -17,6 +17,8 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Queue;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ClientNetworkHandler {
     
@@ -33,6 +35,10 @@ public class ClientNetworkHandler {
     
     private int myClientId;
     private long responseTime = -1;
+    
+    private long ping;
+    
+    public long getPing() { return ping; }
     
     public ClientNetworkHandler(String ip, int port, PlayerShip player, List<EnemyShip> enemies,
             List<Projectile> projectiles, StatePlaying state) {
@@ -59,7 +65,7 @@ public class ClientNetworkHandler {
         
         handshake();
         
-        player = new PlayerShip(myClientId, ShipType.HUMAN_SHIP);
+        player = new PlayerShip(myClientId, ShipType.HUMAN_SHIP,projectiles);
         state.setPlayer(player);
         state.connected();
         
@@ -79,20 +85,42 @@ public class ClientNetworkHandler {
                     responseTime = System.currentTimeMillis();
                     DataPacket recvDataPacket = new DataPacket(recvData);
                     
-                    double dataPacketType = recvDataPacket.getDouble(DataPacket.TYPE);
-                    
-                    if (recvDataPacket.getClient() == myClientId && dataPacketType>=0)
-                        continue;
-                    
+                    double dataPacketType = recvDataPacket.getInt(DataPacket.TYPE);
+                                        
                     if (dataPacketType == 42) {
+                        boolean exists = false;
+                        for (Projectile p : projectiles) {
+                            if (p.equals((int)recvDataPacket.getDouble(DataPacket.ID),
+                                    (int)recvDataPacket.getDouble(DataPacket.PARENT))
+                                    && p instanceof Laser) {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (exists) continue;
+                        System.out.println("Laser.");
                         projectiles.add(new Laser(recvDataPacket));
                         continue;
                     }
                     
                     if (dataPacketType == 1337) {
+                        boolean exists = false;
+                        for (Projectile p : projectiles) {
+                            if (p.equals((int)recvDataPacket.getDouble(DataPacket.ID),
+                                    (int)recvDataPacket.getDouble(DataPacket.PARENT))
+                                    && p instanceof Missile) {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (exists) continue;
+                        System.out.println("Missile.");
                         projectiles.add(new Missile(recvDataPacket));
                         continue;
                     }
+                    
+                    if (recvDataPacket.getClient() == myClientId)
+                        continue;
                     
                     boolean updated = false;
 
@@ -113,13 +141,14 @@ public class ClientNetworkHandler {
         });
         get.start();
         
-        send = new Thread(new Runnable() {
+        new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 byte[] sendData;
                 Queue<Projectile> pq = player.getProjectileQueue();
                 while (running) {
-                    if (responseTime != -1 && System.currentTimeMillis()-responseTime > 1000) {
+                    ping = System.currentTimeMillis()-responseTime;
+                    if (responseTime != -1 && ping > 10000) {
                         System.out.println("Disconnecting.");
                         running = false;
                     }
@@ -148,8 +177,8 @@ public class ClientNetworkHandler {
                     socket.close();
                 }
             }
-        });
-        send.start();
+        },0,16);
+        //send.start();
     }
 
     private void handshake() {

@@ -51,4 +51,18 @@ public abstract class Projectile {
     public int getBaseDamage() { return baseDamage; }
     public abstract int getShieldDamage();
     public abstract int getHullDamage();
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof Projectile))
+            return false;
+        
+        Projectile p = (Projectile) o;
+        
+        return p.getID() == id && p.getParentID() == parentID;
+    }
+    
+    public boolean equals(int id, int parentID) {
+        return this.id == id && this.parentID == parentID;
+    }
 }
