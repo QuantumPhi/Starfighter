@@ -14,8 +14,12 @@ public class Vector {
         speed = Math.min(speed + accel * delta, maxSpd);
     }
     
-    public void decelerate(double accel, int delta) {
-        speed = Math.max(speed - accel * delta, -maxSpd / 2);
+    public void decelerate(double decel, int delta) {
+        speed = Math.max(speed - decel * delta, -maxSpd / 2);
+    }
+    
+    public void friction(double friction, int delta) {
+        speed = speed >= 0 ? Math.max(speed - friction * delta, 0) : Math.min(speed + friction * delta, 0);
     }
     
     public void turnRight(double turn, int delta) {

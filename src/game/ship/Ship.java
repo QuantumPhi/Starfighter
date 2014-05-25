@@ -35,7 +35,7 @@ public abstract class Ship {
         velocity = new Vector(maxSpeed);
         turn = t;
         accel = a;
-        friction = accel / 0.25;
+        friction = accel * 0.2;
     }
     
     public Ship(long i) {
