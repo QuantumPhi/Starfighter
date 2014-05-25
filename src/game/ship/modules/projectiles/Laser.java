@@ -2,6 +2,7 @@ package game.ship.modules.projectiles;
 
 import game.ship.Ship;
 import game.ship.util.Vector;
+import game.util.Rectangle;
 import game.util.resource.ImageLibrary;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -11,6 +12,7 @@ public class Laser extends Projectile {
     private static final double SPEED = 30;
     private static long lasersCreated = 0;
     private int damage;
+    private Rectangle mask = new Rectangle(7, 0, 8, 15);
     
     public Laser() {
         super(ImageLibrary.LASER.getImage());

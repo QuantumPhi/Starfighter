@@ -3,6 +3,7 @@ package game.ship.modules.projectiles;
 import game.ship.EnemyShip;
 import game.ship.Ship;
 import game.ship.util.Vector;
+import game.util.Rectangle;
 import game.util.resource.ImageLibrary;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -14,6 +15,7 @@ public class Missile extends Projectile {
     
     private EnemyShip target;
     private int damage;
+    private Rectangle mask = new Rectangle(7, 4, 8, 11);
     
     public Missile() {
         super(ImageLibrary.MISSILE.getImage());
