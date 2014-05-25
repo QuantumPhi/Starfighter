@@ -10,16 +10,17 @@ public class Vector {
         maxSpd = s;
     }
     
-    public void accelerate(double accel, int delta) {
+    public void accelerate(double accel, int delta, double limit) {
         speed = Math.min(speed + accel * delta, maxSpd);
     }
     
-    public void decelerate(double decel, int delta) {
-        speed = Math.max(speed - decel * delta, -maxSpd / 2);
+    public void decelerate(double decel, int delta, double limit) {
+        accelerate(-decel, delta, limit);
     }
     
     public void friction(double friction, int delta) {
-        speed = speed >= 0 ? Math.max(speed - friction * delta, 0) : Math.min(speed + friction * delta, 0);
+        if(speed >= 0) decelerate(friction, delta, 0);
+        else accelerate(friction, delta, 0);
     }
     
     public void turnRight(double turn, int delta) {
@@ -34,6 +35,9 @@ public class Vector {
     
     public double getSpeed() { return speed; }
     public double getAngle() { return angle; }
+    
+    public double getAccelLimit() { return maxSpd; }
+    public double getDecelLimit() { return -maxSpd / 2; }
     
     public void setSpeed(double s) { speed = s; }
     public void setAngle(double a) { angle = a; }

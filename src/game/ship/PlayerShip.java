@@ -45,9 +45,9 @@ public class PlayerShip extends Ship {
         Input input = container.getInput();
         
         if(input.isKeyDown(Options.SPEED_UP.key()))
-            velocity.accelerate(accel,delta);
+            velocity.accelerate(accel,delta, velocity.getAccelLimit());
         else if(input.isKeyDown(Options.SLOW_DOWN.key()))
-            velocity.decelerate(accel,delta);
+            velocity.decelerate(accel,delta, velocity.getDecelLimit());
         else
             velocity.friction(friction, delta);
         if(input.isKeyDown(Options.TURN_RIGHT.key()))
