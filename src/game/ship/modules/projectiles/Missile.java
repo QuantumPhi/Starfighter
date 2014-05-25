@@ -73,14 +73,12 @@ public class Missile extends Projectile {
     }
     
     public void serverUpdate(int delta, List<EnemyShip> ships) {
-        
         if (target != null) {
             double dirTo = MathHelper.dirTo(x,y,target.getX(),target.getY())+180;
             if (Math.abs(dirTo-velocity.getAngle()) > turningCircle)
-                velocity.turnRight(turningCircle*MathHelper.getDir(dirTo,velocity.getAngle()), delta);
+                velocity.turnRight(turningCircle*MathHelper.getDir(dirTo,velocity.getAngle()),delta);
             setX(x+velocity.getSpeed() * Math.cos(Math.toRadians(velocity.getAngle())));
             setY(y+velocity.getSpeed() * Math.sin(Math.toRadians(velocity.getAngle())));
-            mask.setAngle(velocity.getAngle());
             return;
         }
         
@@ -90,7 +88,7 @@ public class Missile extends Projectile {
         for (EnemyShip s : ships) {
             if (s.getID() == getParentID())
                 continue;
-             double dirTo = MathHelper.dirTo(x,y,s.getX(),s.getY())+180;
+             double dirTo = MathHelper.dirTo(x,y,s.getX(),s.getY());
              
              if (Math.abs(dirTo) < Math.abs(bestAngle)) {
                  bestAngle = dirTo;
