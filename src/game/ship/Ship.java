@@ -3,9 +3,6 @@ package game.ship;
 import game.network.DataPacket;
 import game.ship.modules.Frame;
 import game.ship.modules.projectiles.Projectile;
-import game.ship.modules.weapons.LaserCannon;
-import game.ship.modules.weapons.MissileLauncher;
-import game.ship.modules.weapons.Weapon;
 import game.ship.util.Vector;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -26,8 +23,6 @@ public abstract class Ship {
     protected ShipType type;
     
     protected Frame ship;
-    protected Weapon[] weapons;
-    protected int currentWeapon;
     
     public ShipType getType() { return type; }
     
@@ -41,7 +36,6 @@ public abstract class Ship {
         turn = t;
         accel = a;
         friction = accel / 0.25;
-        initWeapons();
     }
     
     public Ship(long i) {
@@ -57,12 +51,6 @@ public abstract class Ship {
         id = (long)p.getClient();
         type = ShipType.values()[p.getInt(DataPacket.TYPE)];
         velocity = new Vector(type.maxSpeed());
-    }
-    
-    private void initWeapons() {
-        weapons = new Weapon[2];
-        weapons[0] = new LaserCannon();
-        weapons[1] = new MissileLauncher();
     }
     
     public void resolveHit(Projectile p) {

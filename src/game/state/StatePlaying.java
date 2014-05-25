@@ -5,6 +5,7 @@ import game.galaxy.Star;
 import game.network.ClientNetworkHandler;
 import game.ship.EnemyShip;
 import game.ship.PlayerShip;
+import game.ship.modules.projectiles.Projectile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -26,6 +27,7 @@ public class StatePlaying extends BasicGameState {
     private ClientNetworkHandler network;
     private PlayerShip player;
     private List<EnemyShip> enemies;
+    private List<Projectile> projectiles;
     private boolean ready = false;
     
     private List<Star> stars;
@@ -78,6 +80,8 @@ public class StatePlaying extends BasicGameState {
         
         for(EnemyShip e : enemies)
             e.render(g);
+        for(Projectile p : player.getProjectiles())
+            p.render(g);
     }
     
     @Override
@@ -89,6 +93,8 @@ public class StatePlaying extends BasicGameState {
         
         for(EnemyShip e : enemies)
             e.update(container,delta);
+        for(Projectile p : player.getProjectiles())
+            p.update(delta);
     }
     
     @Override

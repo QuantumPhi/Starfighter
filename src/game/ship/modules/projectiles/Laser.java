@@ -9,21 +9,26 @@ import org.newdawn.slick.Image;
 public class Laser extends Projectile {
     
     private static final double SPEED = 40;
+    private static long lasersCreated = 0;
     private int damage;
     
     public Laser() {
         super(ImageLibrary.LASER.getImage());
     }
     
-    public Laser(Ship s, Vector v) {
-        super(ImageLibrary.LASER.getImage());
-        velocity = v;
+    public Laser(long id, Ship s) {
+        super(id, s.getID(), ImageLibrary.LASER.getImage());
+        velocity = new Vector(SPEED);
         velocity.setAngle(s.getAngle());
     }
     
     @Override
     public Projectile createProjectile(Ship s) {
-        return new Laser(s, new Vector(SPEED));
+        Laser l = new Laser(lasersCreated, s);
+        l.setX(s.getX());
+        l.setY(s.getY());
+        lasersCreated++;
+        return l;
     }
 
     @Override

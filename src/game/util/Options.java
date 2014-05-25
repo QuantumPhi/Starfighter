@@ -10,7 +10,7 @@ public enum Options {
     TURN_LEFT(Input.KEY_A),
     
     SHOOT_LASER(Input.KEY_S),
-    FIRE_WEAPON(Input.KEY_Z),
+    FIRE_WEAPON(Input.KEY_SPACE),
     SWITCH_WEAPON(Input.KEY_E);
     
     private int key;
