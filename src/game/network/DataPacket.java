@@ -1,13 +1,13 @@
 package game.network;
 
-public class DataPacket {
+public final class DataPacket {
 
-    public static final int MAX_SIZE = 16;
+    public static final int MAX_SIZE = 32;
     
     public static final int ID = 0;
-    public static final int X = 4;
-    public static final int Y = 8;
-    public static final int DIR = 12;
+    public static final int X = 8;
+    public static final int Y = 16;
+    public static final int DIR = 24;
     
     private byte[] data;
         
@@ -15,8 +15,7 @@ public class DataPacket {
         this.data = data;
     }
     
-    // Called by server send thread.
-    public DataPacket(EnemyShip s) {
+    public DataPacket(Ship s) {
         data = new byte[MAX_SIZE];
         /*
         add(e.id,ID);
@@ -25,35 +24,37 @@ public class DataPacket {
         add(e.dir,DIR);
         */
     }
-        
-    public final void add(int i, int pos) {
-        data[pos] = (byte) (i >> 24);
-        data[pos+1] = (byte) (i >> 16);
-        data[pos+2] = (byte) (i >> 8);
-        data[pos+3] = (byte) (i);
+    
+    public void add(double d, int pos) {
+        long l = Double.doubleToLongBits(d);
+        data[pos] = (byte) (l >> 48);
+        data[pos+1] = (byte) (l >> 32);
+        data[pos+2] = (byte) (l >> 16);
+        data[pos+3] = (byte) (l);
     }
     
-    public int get(int pos) {
-        int n = 0;
-        for (int i=0;i<4;i++) {
+    public double get(int pos) {
+        long n = 0;
+        for (int i=0;i<8;i++) {
             n <<= 8;
             n |= (int)data[i+pos] & 0xFF;
         }
-        return n;
+        return Double.longBitsToDouble(n);
     }
     
-    public static void add(byte[] arr, int i, int pos) {
-        arr[pos] = (byte) (i >> 24);
-        arr[pos+1] = (byte) (i >> 16);
-        arr[pos+2] = (byte) (i >> 8);
-        arr[pos+3] = (byte) (i);
+    public static void add(byte[] arr, double d, int pos) {
+        long l = Double.doubleToLongBits(d);
+        arr[pos] = (byte) (l >> 48);
+        arr[pos+1] = (byte) (l >> 32);
+        arr[pos+2] = (byte) (l >> 16);
+        arr[pos+3] = (byte) (l);
     }
     
     public byte[] getBytes() {
         return data;
     }
     
-    public int getClient() {
+    public double getClient() {
         return get(ID);
     }
     

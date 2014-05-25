@@ -92,12 +92,12 @@ public class ClientNetworkHandler {
                         System.out.println("Disconnecting.");
                         running = false;
                     }
-                    sendData = player.getBytes(myClientId);
+                    sendData = new DataPacket(player).getBytes();
                     DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length,ip,port);
                     try {
                         socket.send(sendPacket);
                     } catch (IOException e) {
-                        System.out.println("Error sending packet: " + e);
+                        throw new NetworkException("Error sending packet: " + e);
                     }
                 }
                 if (socket != null && !socket.isClosed()) {
