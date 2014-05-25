@@ -55,8 +55,8 @@ public abstract class Ship {
         velocity = new Vector(type.maxSpeed());
     }
     
-    public void resolveHit(Projectile p, int damage) {
-        ship.resolveHit(p, damage);
+    public void resolveHit(Projectile p) {
+        ship.resolveHit(p);
     }
     
     public abstract void update(GameContainer container, int delta);

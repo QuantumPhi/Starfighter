@@ -23,7 +23,7 @@ public class Frame {
     
     public void resolveHit(Projectile p) {
         int dmgS = shield.integrity() - p.getShieldDamage();
-        int dmgH = dmgS < 0 ? (p.getShieldDamage() + dmgS) / 2 : 0;
+        int dmgH = dmgS < 0 ? (int)((p.getShieldDamage() + dmgS) / (double)(p.getShieldDamage()) / p.getHullDamage()) : 0;
         shield.resolveHit(dmgS < 0 ? shield.integrity() : dmgS);
         hull.resolveHit(dmgH);
     }
