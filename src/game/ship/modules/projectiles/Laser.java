@@ -3,6 +3,7 @@ package game.ship.modules.projectiles;
 import game.network.DataPacket;
 import game.ship.Ship;
 import game.ship.util.Vector;
+import game.util.Point;
 import game.util.resource.ImageLibrary;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -12,17 +13,17 @@ public class Laser extends Projectile {
     private static final double SPEED = 30;
     private static long lasersCreated = 0;
     private int damage;
-    private int maskX = 7;
-    private int maskY = 7;
         
     public Laser() {
         super(ImageLibrary.LASER.getImage());
+        mask = new Point(7, 7);
     }
     
     public Laser(DataPacket p) {
         super(p);
         velocity = new Vector(SPEED);
         p.update(this);
+        mask = new Point(7, 7);
     }
     
     public Laser(long id, Ship s) {
@@ -30,6 +31,7 @@ public class Laser extends Projectile {
         velocity = new Vector(SPEED);
         velocity.setSpeed(SPEED);
         velocity.setAngle(s.getAngle());
+        mask = new Point(7, 7);
     }
     
     @Override
@@ -62,9 +64,6 @@ public class Laser extends Projectile {
         img.draw((float)ex,(float)ey,4.0f);
     }
     
-    public int maskX() { return maskX; }
-    public int maskY() { return maskY; }
-    
     @Override
     public int getShieldDamage() {
         return baseDamage + damage;
@@ -74,4 +73,6 @@ public class Laser extends Projectile {
     public int getHullDamage() {
         return baseDamage;
     }
+    
+    public Point getMask() { return mask; }
 }

@@ -5,6 +5,7 @@ import game.ship.EnemyShip;
 import game.ship.Ship;
 import game.ship.util.MathHelper;
 import game.ship.util.Vector;
+import game.util.Point;
 import game.util.Rectangle;
 import game.util.resource.ImageLibrary;
 import java.util.List;
@@ -18,17 +19,18 @@ public class Missile extends Projectile {
     
     private EnemyShip target;
     private int damage;
-    private Rectangle mask = new Rectangle(7, 4, 8, 11);
     private double turningCircle = 0.01;
     
     public Missile() {
         super(ImageLibrary.MISSILE.getImage());
+        mask = new Point(7, 7);
     }
     
     public Missile(DataPacket p) {
         super(p);
         velocity = new Vector(SPEED);
         p.update(this);
+        mask = new Point(7, 7);
     }
     
     public Missile(long id, Ship s) {
@@ -36,6 +38,7 @@ public class Missile extends Projectile {
         velocity = new Vector(SPEED);
         velocity.setSpeed(SPEED);
         velocity.setAngle(s.getAngle());
+        mask = new Point(7, 7);
     }
     
     public Missile(long id, Ship s, EnemyShip t) {
@@ -44,6 +47,7 @@ public class Missile extends Projectile {
         velocity.setSpeed(SPEED);
         velocity.setAngle(Math.toDegrees(Math.atan2(t.getY() - s.getY(), t.getX() - s.getX())));
         target = t;
+        mask = new Point(7, 7);
     }
     
     @Override
@@ -67,9 +71,6 @@ public class Missile extends Projectile {
     public void update(int delta) {
         ex += velocity.getSpeed() * Math.cos(Math.toRadians(velocity.getAngle()));
         ey -= velocity.getSpeed() * Math.sin(Math.toRadians(velocity.getAngle()));
-        mask.setX(ex);
-        mask.setY(ey);
-        mask.setAngle(velocity.getAngle());
     }
     
     public void serverUpdate(int delta, List<EnemyShip> ships) {
@@ -124,5 +125,5 @@ public class Missile extends Projectile {
         return baseDamage + damage;
     }
     
-    public Rectangle getMask() { return mask; }
+    public Point getMask() { return mask; }
 }
