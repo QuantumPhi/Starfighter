@@ -137,13 +137,17 @@ public class Server {
                     
                     // Laser
                     if (type==-2) {
-                        projectiles.add(new Laser(packet));
+                        Laser l = new Laser(packet);
+                        projectiles.add(l);
+                        new Timer().schedule(new LaserTask(l),0,16);
                         return;
                     }
                     
                     // Missile
                     if (type==-1) {
-                        projectiles.add(new Missile(packet));
+                        Missile m = new Missile(packet);
+                        projectiles.add(m);
+                        new Timer().schedule(new MissileTask(m,players),0,16);
                         return;
                     }
                     
@@ -163,7 +167,7 @@ public class Server {
                     players.add(new EnemyShip(packet));
                     System.out.println("Adding new enemy. ID: " + packet.getDouble(DataPacket.ID));
                     
-                    Runnable r = new ServerSendThread(players,socket,Server.this,
+                    Runnable r = new ServerSendThread(players,projectiles,socket,Server.this,
                             recvPacket.getAddress(),recvPacket.getPort(),clientId);
                     new Thread(r).start();
                 }

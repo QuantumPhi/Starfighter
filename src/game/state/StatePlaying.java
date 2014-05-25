@@ -50,7 +50,8 @@ public class StatePlaying extends BasicGameState {
     @Override
     public void enter(GameContainer container, StateBasedGame game) throws SlickException {
         enemies = new CopyOnWriteArrayList<EnemyShip>();
-        network = new ClientNetworkHandler(ip,port,player,enemies,this);
+        projectiles = new CopyOnWriteArrayList<Projectile>();
+        network = new ClientNetworkHandler(ip,port,player,enemies,projectiles,this);
         network.start();
         stars = new ArrayList<Star>();
         

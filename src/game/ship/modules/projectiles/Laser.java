@@ -1,5 +1,6 @@
 package game.ship.modules.projectiles;
 
+import game.network.DataPacket;
 import game.ship.Ship;
 import game.ship.util.Vector;
 import game.util.resource.ImageLibrary;
@@ -14,6 +15,12 @@ public class Laser extends Projectile {
     
     public Laser() {
         super(ImageLibrary.LASER.getImage());
+    }
+    
+    public Laser(DataPacket p) {
+        super(p);
+        velocity = new Vector(SPEED);
+        p.update(this);
     }
     
     public Laser(long id, Ship s) {
@@ -34,8 +41,13 @@ public class Laser extends Projectile {
 
     @Override
     public void update(int delta) {
-        x += velocity.getSpeed() * Math.cos(Math.toRadians(velocity.getAngle()));
-        y -= velocity.getSpeed() * Math.sin(Math.toRadians(velocity.getAngle()));
+        ex += velocity.getSpeed() * Math.cos(Math.toRadians(velocity.getAngle()));
+        ey -= velocity.getSpeed() * Math.sin(Math.toRadians(velocity.getAngle()));
+    }
+    
+    public void serverUpdate(int delta) {
+        setX(x+velocity.getSpeed() * Math.cos(Math.toRadians(velocity.getAngle())));
+        setY(y+velocity.getSpeed() * Math.sin(Math.toRadians(velocity.getAngle())));
     }
 
     @Override
@@ -43,7 +55,7 @@ public class Laser extends Projectile {
         Image img = sprite.copy();
         img.setCenterOfRotation(32,32);
         img.rotate(-(float)velocity.getAngle()+90);
-        img.draw((float)x,(float)y,4.0f);
+        img.draw((float)ex,(float)ey,4.0f);
     }
     
     @Override

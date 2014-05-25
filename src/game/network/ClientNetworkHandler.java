@@ -3,6 +3,9 @@ package game.network;
 import game.ship.EnemyShip;
 import game.ship.PlayerShip;
 import game.ship.ShipType;
+import game.ship.modules.projectiles.Laser;
+import game.ship.modules.projectiles.Missile;
+import game.ship.modules.projectiles.Projectile;
 import game.state.StatePlaying;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +16,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.Queue;
 
 public class ClientNetworkHandler {
     
@@ -24,13 +28,16 @@ public class ClientNetworkHandler {
     private InetAddress ip;
     private int port = 0;
     private List<EnemyShip> enemies;
+    private List<Projectile> projectiles;
     private StatePlaying state;
     
     private int myClientId;
     private long responseTime = -1;
     
-    public ClientNetworkHandler(String ip, int port, PlayerShip player, List<EnemyShip> enemies, StatePlaying state) {
+    public ClientNetworkHandler(String ip, int port, PlayerShip player, List<EnemyShip> enemies,
+            List<Projectile> projectiles, StatePlaying state) {
         this.enemies = enemies;
+        this.projectiles = projectiles;
         try {
             this.ip = InetAddress.getByName(ip);
         } catch (UnknownHostException e) {
@@ -72,9 +79,23 @@ public class ClientNetworkHandler {
                     responseTime = System.currentTimeMillis();
                     DataPacket recvDataPacket = new DataPacket(recvData);
                     
-                    if (recvDataPacket.getClient() == myClientId)
+                    double dataPacketType = recvDataPacket.getDouble(DataPacket.TYPE);
+                    
+                    System.out.println(dataPacketType);
+                    
+                    if (recvDataPacket.getClient() == myClientId && dataPacketType>=0)
                         continue;
-                                        
+                    
+                    if (dataPacketType == -1) {
+                        projectiles.add(new Laser(recvDataPacket));
+                        continue;
+                    }
+                    
+                    if (dataPacketType == -2) {
+                        projectiles.add(new Missile(recvDataPacket));
+                        continue;
+                    }
+                    
                     boolean updated = false;
 
                     for (EnemyShip e : enemies) {
@@ -98,11 +119,24 @@ public class ClientNetworkHandler {
             @Override
             public void run() {
                 byte[] sendData;
+                Queue<Projectile> pq = player.getProjectileQueue();
                 while (running) {
                     if (responseTime != -1 && System.currentTimeMillis()-responseTime > 1000) {
                         System.out.println("Disconnecting.");
                         running = false;
                     }
+                    
+                    if (pq.size() > 0) {
+                        sendData = new DataPacket(pq.poll()).getBytes();
+                        DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length,ip,port);
+                        try {
+                            socket.send(sendPacket);
+                        } catch (IOException e) {
+                            throw new NetworkException("Error sending packet: " + e);
+                        }
+                        continue;
+                    }
+                    
                     sendData = new DataPacket(player).getBytes();
                     DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length,ip,port);
                     try {

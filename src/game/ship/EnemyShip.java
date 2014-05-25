@@ -24,10 +24,10 @@ public class EnemyShip extends Ship {
         super(id);
     }
     
-    /** @param pkt Data packet containing ship data **/
-    public EnemyShip(DataPacket pkt) {
-        super(pkt);
-        pkt.update(this);
+    /** @param p Data packet containing ship data **/
+    public EnemyShip(DataPacket p) {
+        super(p);
+        p.update(this);
     }
     
     @Override
