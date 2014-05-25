@@ -1,5 +1,7 @@
 package game.network;
 
+import game.ship.EnemyShip;
+import game.ship.PlayerShip;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.DatagramPacket;
@@ -67,8 +69,8 @@ public class ClientNetworkHandler {
                     boolean updated = false;
 
                     for (EnemyShip e : enemies) {
-                        if (recvDataPacket.getClient() == e.id) {
-                            e.update(recvDataPacket);
+                        if (recvDataPacket.getClient() == e.getID()) {
+                            recvDataPacket.update(e);
                             updated = true;
                             break;
                         }
@@ -77,7 +79,7 @@ public class ClientNetworkHandler {
                     if (updated)
                         continue;
 
-                    enemies.add(new EnemyPlayer(recvDataPacket));
+                    enemies.add(new EnemyShip(recvDataPacket));
                 }
             }
         });

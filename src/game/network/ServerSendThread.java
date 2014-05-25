@@ -1,5 +1,6 @@
 package game.network;
 
+import game.ship.EnemyShip;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -8,14 +9,14 @@ import java.util.List;
 
 public class ServerSendThread implements Runnable {
     
-    private List<EnemyPlayer> players;
+    private List<EnemyShip> players;
     private DatagramSocket socket;
     private Server server;
     private InetAddress destIp;
     private int destPort;
     private int id;
     
-    public ServerSendThread(List<EnemyPlayer> players,
+    public ServerSendThread(List<EnemyShip> players,
             DatagramSocket socket, Server server, InetAddress destIp,
             int destPort, int id) {
         this.players = players;
@@ -35,7 +36,7 @@ public class ServerSendThread implements Runnable {
                 server.killId(id);
                 break;
             }
-            for (EnemyPlayer e : players) {
+            for (EnemyShip e : players) {
                 data = new DataPacket(e).getBytes();
                 DatagramPacket packet = new DatagramPacket(data,data.length,destIp,destPort);
                 try {

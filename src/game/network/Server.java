@@ -1,5 +1,6 @@
 package game.network;
 
+import game.ship.EnemyShip;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.DatagramPacket;
@@ -127,11 +128,11 @@ public class Server {
                     }
                     
                     packet = new DataPacket(recvPacket.getData());
-                    clientId = packet.getClient();
+                    clientId = (int) packet.getClient();
                     
                     updated = false;
                     for (EnemyShip e : players) {
-                        if (e.id == clientId) {
+                        if (e.getID() == clientId) {
                             ping.put(clientId,iteration);
                             packet.update(e);
                             updated = true;
