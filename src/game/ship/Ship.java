@@ -27,6 +27,7 @@ public abstract class Ship {
     /** @param i ID for the ship **/
     public Ship(long i) {
         id = i;
+        velocity = new Vector(10);
     }
     
     public void resolveHit(int damage) {

@@ -2,6 +2,7 @@ package game.network;
 
 import game.ship.EnemyShip;
 import game.ship.PlayerShip;
+import game.state.StatePlaying;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.DatagramPacket;
@@ -22,19 +23,21 @@ public class ClientNetworkHandler {
     private InetAddress ip;
     private int port = 0;
     private List<EnemyShip> enemies;
+    private StatePlaying state;
     
     private int myClientId;
     private long responseTime = -1;
     
-    public ClientNetworkHandler(String newIp, int newPort, PlayerShip localPlayer, List<EnemyShip> newEnemies) {
-        this.enemies = newEnemies;
+    public ClientNetworkHandler(String ip, int port, PlayerShip player, List<EnemyShip> enemies, StatePlaying state) {
+        this.enemies = enemies;
         try {
-            this.ip = InetAddress.getByName(newIp);
+            this.ip = InetAddress.getByName(ip);
         } catch (UnknownHostException e) {
-            throw new NetworkException("Invalid ip: (" + newIp + ") - " + e);
+            throw new NetworkException("Invalid ip: (" + ip + ") - " + e);
         }
-        this.port = newPort;
-        this.player = localPlayer;
+        this.port = port;
+        this.player = player;
+        this.state = state;
     }
     
     public void start() {
@@ -47,6 +50,11 @@ public class ClientNetworkHandler {
         }
         
         handshake();
+        
+        player = new PlayerShip(myClientId);
+        state.setPlayer(player);
+        state.connected();
+        
         
         get = new Thread(new Runnable() {
             @Override

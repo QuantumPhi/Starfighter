@@ -23,6 +23,6 @@ public class PlayerShip extends Ship {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(sprite, (float)x, (float)y);
+        g.drawImage(sprite,(float)x,(float)y);
     }
 }

@@ -67,6 +67,7 @@ public class Server {
                 while (running) {
                     Socket clientSocket = null;
                     try {
+                        System.out.println("Waiting for client.");
                         clientSocket = socket.accept();
                     } catch (IOException e) {
                         throw new NetworkException("Error accepting socket: " + e);
