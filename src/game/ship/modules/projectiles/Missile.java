@@ -69,6 +69,7 @@ public class Missile extends Projectile {
         ey -= velocity.getSpeed() * Math.sin(Math.toRadians(velocity.getAngle()));
         mask.setX(ex);
         mask.setY(ey);
+        mask.setAngle(velocity.getAngle());
     }
     
     public void serverUpdate(int delta, List<EnemyShip> ships) {
@@ -79,6 +80,7 @@ public class Missile extends Projectile {
                 velocity.turnRight(turningCircle*MathHelper.getDir(dirTo,velocity.getAngle()), delta);
             setX(x+velocity.getSpeed() * Math.cos(Math.toRadians(velocity.getAngle())));
             setY(y+velocity.getSpeed() * Math.sin(Math.toRadians(velocity.getAngle())));
+            mask.setAngle(velocity.getAngle());
             return;
         }
         

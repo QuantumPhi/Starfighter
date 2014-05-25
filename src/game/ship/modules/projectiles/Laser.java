@@ -47,6 +47,7 @@ public class Laser extends Projectile {
         ey -= velocity.getSpeed() * Math.sin(Math.toRadians(velocity.getAngle()));
         mask.setX(ex);
         mask.setY(ey);
+        mask.setAngle(velocity.getAngle());
     }
     
     public void serverUpdate(int delta) {

@@ -11,9 +11,8 @@ public class Circle {
         radius = type.getRadius();
     }
     
-    public boolean intersects(Circle o) {
-        return Math.sqrt(Math.pow(o.getX() - x, 2) + Math.pow(o.getY() - y, 2)) 
-                <= o.getRadius() + radius;
+    public boolean isInCircle(double ox, double oy) {
+        return Math.hypot(x - ox, y - ox) <= radius*2;
     }
     
     public double getRadius() { return radius; }
