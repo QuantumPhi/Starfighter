@@ -8,9 +8,12 @@ import org.newdawn.slick.Input;
 
 public class PlayerShip extends Ship {
 
-    /** @param id ID for ship **/
-    public PlayerShip(long id) {
-        super(id);
+    /** 
+     * @param id ID for the ship 
+     * @param maxSpeed Maximum speed of the ship
+     **/
+    public PlayerShip(long id, double maxSpeed) {
+        super(id, maxSpeed);
         sprite = ImageLibrary.HUMAN_STARFIGHTER.getImage();
     }
     

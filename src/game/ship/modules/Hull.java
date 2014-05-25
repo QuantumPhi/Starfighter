@@ -2,30 +2,22 @@ package game.ship.modules;
 
 import game.ship.properties.Regenerable;
 
-public class Hull implements Regenerable {
+public class Hull {
     
     private int maxInt;
     private int integrity;
-    private int regen;
     
-    /** *  
+    /**  
      * @param i Health of the hull
-     * @param r Regeneration rate of the hull
      **/
-    public Hull(int i, int r) {
-        maxInt = r;
+    public Hull(int i) {
+        maxInt = i;
         integrity = i;
-        regen = r;
     }
     
     public int integrity() { return integrity; }
     
     public void resolveHit(int damage) {
         integrity -= damage;
-    }
-
-    @Override
-    public void regenerate(int delta) {
-        
     }
 }

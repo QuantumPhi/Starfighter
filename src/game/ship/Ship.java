@@ -22,12 +22,19 @@ public abstract class Ship {
     
     protected Frame ship;
     protected Weapon[] weapons;
-    protected Energy core;
     
-    /** @param i ID for the ship **/
-    public Ship(long i) {
+    /** 
+     * @param i ID for the ship 
+     * @param maxSpeed Maximum speed of the ship
+     **/
+    public Ship(long i, double maxSpeed) {
         id = i;
-        velocity = new Vector(10);
+        velocity = new Vector(maxSpeed);
+    }
+    
+    public Ship(long i, ShipType type) {
+        id = i;
+        
     }
     
     public void resolveHit(int damage) {
@@ -36,11 +43,6 @@ public abstract class Ship {
     
     public abstract void update(GameContainer container, int delta);
     public abstract void render(Graphics g);
-    
-    public void regenShields() {
-        core.useEnergy(1);
-        ship.getShield().energize(1);
-    }
     
     public long getID() { return id; }
     

@@ -12,14 +12,17 @@ public class EnemyShip extends Ship {
     @Override public void setX(double px) { x = px; ex = px; }
     @Override public void setY(double py) { y = py; ey = py; }
     
-    /** @param id ID for ship **/
-    public EnemyShip(long id) {
-        super(id);
+    /** 
+     * @param i ID for the ship 
+     * @param maxSpeed Maximum speed of the ship
+     **/
+    public EnemyShip(long id, double maxSpeed) {
+        super(id, maxSpeed);
     }
     
     /** @param pkt Data packet containing ship data **/
     public EnemyShip(DataPacket pkt) {
-        this((long)pkt.get(DataPacket.ID));
+        this((long)pkt.get(DataPacket.ID), pkt.get(DataPacket.SPEED));
         pkt.update(this);
     }
     
