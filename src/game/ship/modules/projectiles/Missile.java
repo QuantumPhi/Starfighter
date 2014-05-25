@@ -88,7 +88,7 @@ public class Missile extends Projectile {
         for (EnemyShip s : ships) {
             if (s.getID() == getParentID())
                 continue;
-             double dirTo = MathHelper.dirTo(x,y,target.getX(),target.getY())+180;
+             double dirTo = MathHelper.dirTo(x,y,s.getX(),s.getY())+180;
              
              if (Math.abs(dirTo) < Math.abs(bestAngle)) {
                  bestAngle = dirTo;

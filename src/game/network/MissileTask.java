@@ -24,19 +24,6 @@ public class MissileTask extends TimerTask {
     @Override
     public void run() {
         missile.serverUpdate(16,ships);
-        for(EnemyShip s : ships) {
-            if(s.getID() == missile.getParentID())
-                continue;
-            if(missile.getMask().intersects(s.getMask())) {
-                System.out.println("Missile hit registered");
-                if(!missile.hasHitTarget()) {
-                    s.resolveHit(missile);
-                    missile.hitTarget();
-                }
-                projectiles.remove(missile);
-                break;
-            }
-        }
         timer.cancel();
         timer.purge();
     }
