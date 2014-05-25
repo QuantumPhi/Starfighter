@@ -1,5 +1,7 @@
 package game.ship.modules;
 
+import game.ship.modules.weapons.Projectile;
+
 public class Frame {
     
     private Shield shield;
@@ -19,11 +21,11 @@ public class Frame {
         core = new Energy(ee, re);
     }
     
-    public void resolveHit(int damage) {
-        int dmg = shield.integrity() - damage < 0 ? 
-                Math.abs(shield.integrity() - damage) : 0;
-        shield.resolveHit(damage - dmg);
-        hull.resolveHit(dmg);
+    public void resolveHit(Projectile p) {
+        int dmgS = shield.integrity() - p.getShieldDamage();
+        int dmgH = dmgS < 0 ? (p.getShieldDamage() + dmgS) / 2 : 0;
+        shield.resolveHit(dmgS < 0 ? shield.integrity() : dmgS);
+        hull.resolveHit(dmgH);
     }
     
     public void regenShields() {

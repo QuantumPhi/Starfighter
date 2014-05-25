@@ -4,7 +4,11 @@ import org.newdawn.slick.Image;
 
 public enum ImageLibrary {
     
-    HUMAN_STARFIGHTER("spr_human_starfighter.png");
+    HUMAN_STARFIGHTER("human_starfighter.png"),
+    ALIEN_STARFIGHTER("alien_starfighter.png"),
+        
+    LASER("laser.png"),
+    MISSILE("missile.png");
     
     private String filepath;
     private Image image;

@@ -1,7 +1,6 @@
 package game.ship;
 
 import game.network.DataPacket;
-import game.util.resource.ImageLibrary;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;

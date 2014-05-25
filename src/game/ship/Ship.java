@@ -3,6 +3,7 @@ package game.ship;
 import game.network.DataPacket;
 import game.ship.modules.Frame;
 import game.ship.modules.Weapon;
+import game.ship.modules.weapons.Projectile;
 import game.ship.util.Vector;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -48,8 +49,8 @@ public abstract class Ship {
         this((long)pkt.get(DataPacket.ID), pkt.get(DataPacket.SPEED), 0, 0);
     }
     
-    public void resolveHit(int damage) {
-        ship.resolveHit(damage);
+    public void resolveHit(Projectile p, int damage) {
+        ship.resolveHit(p, damage);
     }
     
     public abstract void update(GameContainer container, int delta);
