@@ -28,8 +28,7 @@ public class Server {
     private long iteration;
     
     public static void main(String[] args) {
-        Server server = new Server(9999);
-        server.start();
+        new Server(9999).start();
     }
     
     public Server(int port) {
