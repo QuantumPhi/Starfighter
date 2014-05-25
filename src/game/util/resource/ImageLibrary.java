@@ -8,7 +8,9 @@ public enum ImageLibrary {
     ALIEN_STARFIGHTER("alien_starfighter.png"),
         
     LASER("laser.png"),
-    MISSILE("missile.png");
+    MISSILE("missile.png"),
+    
+    STAR("star.png");
     
     private String filepath;
     private Image image;

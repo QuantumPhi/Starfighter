@@ -1,9 +1,11 @@
 package game.state;
 
 import game.Game;
+import game.galaxy.Star;
 import game.network.ClientNetworkHandler;
 import game.ship.EnemyShip;
 import game.ship.PlayerShip;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.newdawn.slick.GameContainer;
@@ -26,6 +28,8 @@ public class StatePlaying extends BasicGameState {
     private List<EnemyShip> enemies;
     private boolean ready = false;
     
+    private List<Star> stars;
+    
     private int camX;
     private int camY;
     
@@ -46,6 +50,12 @@ public class StatePlaying extends BasicGameState {
         enemies = new CopyOnWriteArrayList<EnemyShip>();
         network = new ClientNetworkHandler(ip,port,player,enemies,this);
         network.start();
+        stars = new ArrayList<Star>();
+        
+        for (int i=0;i<4000;i++) {
+            stars.add(new Star((int)(Math.random()*WORLD_SIZE_X),
+                    (int)(Math.random()*WORLD_SIZE_Y),(int)(Math.random()*5)));
+        }
     }
     
     @Override
@@ -60,7 +70,12 @@ public class StatePlaying extends BasicGameState {
         
         g.translate(-(float)camX,-(float)camY);
         
+        for (Star s : stars) {
+            s.render(g,camX,camY);
+        }
+        
         player.render(g);
+        
         for(EnemyShip e : enemies)
             e.render(g);
     }
