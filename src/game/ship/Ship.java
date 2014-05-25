@@ -28,6 +28,8 @@ public abstract class Ship {
     public Ship(long i) {
         id = i;
         velocity = new Vector(10);
+        accel = 0.01;
+        turn = 2;
     }
     
     public void resolveHit(int damage) {

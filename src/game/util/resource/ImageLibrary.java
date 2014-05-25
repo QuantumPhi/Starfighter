@@ -4,15 +4,13 @@ import org.newdawn.slick.Image;
 
 public enum ImageLibrary {
     
-    HUMAN_STARFIGHTER("spr_human_starfighter.png",false);
+    HUMAN_STARFIGHTER("spr_human_starfighter.png");
     
     private String filepath;
     private Image image;
-    private boolean bg;
     
-    ImageLibrary(String filepath, boolean bg) {
+    ImageLibrary(String filepath) {
         this.filepath = filepath;
-        this.bg = bg;
     }
     
     public Image getImage() {

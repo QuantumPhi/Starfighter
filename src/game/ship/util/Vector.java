@@ -19,12 +19,12 @@ public class Vector {
     }
     
     public void turnRight(double turn, int delta) {
-        angle += turn * delta;
+        angle += turn;
         angle %= 360;
     }
     
-    public void turnLeft(int turn, int delta) {
-        angle -= turn * delta;
+    public void turnLeft(double turn, int delta) {
+        angle -= turn;
         angle = angle < 0 ? 360 + angle : angle;
     }
     
