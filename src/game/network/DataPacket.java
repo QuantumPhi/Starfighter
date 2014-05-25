@@ -2,6 +2,7 @@ package game.network;
 
 import game.ship.EnemyShip;
 import game.ship.Ship;
+import java.nio.ByteBuffer;
 
 public final class DataPacket {
 
@@ -29,23 +30,15 @@ public final class DataPacket {
     }
     
     public void add(double d, int pos) {
-        long l = Double.doubleToLongBits(d);
         add(data,d,pos);
     }
     
     public double get(int pos) {
-        long n = 0;
-        for (int i=0;i<8;i++) {
-            n <<= 8;
-            n |= (int)data[i+pos] & 0xFF;
-        }
-        return Double.longBitsToDouble(n);
+        return ByteBuffer.wrap(data,pos,8).getDouble();
     }
     
     public static void add(byte[] arr, double d, int pos) {
-        long l = Double.doubleToLongBits(d);
-        for (int i=0;i<4;i++)
-            arr[pos+i] = (byte) (l >> 48-16*i);
+        ByteBuffer.wrap(arr,pos,8).putDouble(d);
     }
     
     public byte[] getBytes() {
@@ -53,7 +46,8 @@ public final class DataPacket {
     }
     
     public double getClient() {
-        return get(ID);
+        double d = get(ID);
+        return d;
     }
     
     public void update(EnemyShip s) {

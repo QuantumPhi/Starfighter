@@ -70,10 +70,12 @@ public class ClientNetworkHandler {
                     }
                     responseTime = System.currentTimeMillis();
                     DataPacket recvDataPacket = new DataPacket(recvData);
-
+                    
                     if (recvDataPacket.getClient() == myClientId)
                         continue;
-
+                    
+                    System.out.println(recvDataPacket.getClient());
+                    
                     boolean updated = false;
 
                     for (EnemyShip e : enemies) {
@@ -143,5 +145,6 @@ public class ClientNetworkHandler {
         } catch (IOException e) {
             throw new NetworkException("Error closing handshake socket: " + e);
         }
+        System.out.println(myClientId);
     }
 }
