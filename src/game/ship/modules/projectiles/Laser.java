@@ -3,7 +3,6 @@ package game.ship.modules.projectiles;
 import game.network.DataPacket;
 import game.ship.Ship;
 import game.ship.util.Vector;
-import game.util.Rectangle;
 import game.util.resource.ImageLibrary;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -13,7 +12,8 @@ public class Laser extends Projectile {
     private static final double SPEED = 30;
     private static long lasersCreated = 0;
     private int damage;
-    private Rectangle mask = new Rectangle(7, 0, 8, 15);
+    private int maskX = 7;
+    private int maskY = 7;
         
     public Laser() {
         super(ImageLibrary.LASER.getImage());
@@ -45,9 +45,6 @@ public class Laser extends Projectile {
     public void update(int delta) {
         ex += velocity.getSpeed() * Math.cos(Math.toRadians(velocity.getAngle()));
         ey -= velocity.getSpeed() * Math.sin(Math.toRadians(velocity.getAngle()));
-        mask.setX(ex);
-        mask.setY(ey);
-        mask.setAngle(velocity.getAngle());
     }
     
     public void serverUpdate(int delta) {
@@ -65,7 +62,8 @@ public class Laser extends Projectile {
         img.draw((float)ex,(float)ey,4.0f);
     }
     
-    public Rectangle getMask() { return mask; }
+    public int maskX() { return maskX; }
+    public int maskY() { return maskY; }
     
     @Override
     public int getShieldDamage() {
