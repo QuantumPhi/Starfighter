@@ -9,7 +9,7 @@ import org.newdawn.slick.state.StateBasedGame;
 /** You probably shouldn't be modifying this class. */
 public class Game extends StateBasedGame {
     
-    public static final int STATE_MENU = 0;
+    public static final int STATE_GAME = 0;
     
     public static final int VIEW_SIZE_X = 640;
     public static final int VIEW_SIZE_Y = 512;
@@ -29,7 +29,7 @@ public class Game extends StateBasedGame {
     
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
-        this.addState(new StatePlaying(STATE_MENU));
+        this.addState(new StatePlaying(STATE_GAME));
     }
     
     /** Sets up the window. */
