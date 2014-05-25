@@ -104,6 +104,8 @@ public class Missile extends Projectile {
     
     @Override
     public void render(Graphics g) {
+        if (sprite == null)
+            sprite = ImageLibrary.LASER.getImage();
         Image img = sprite.copy();
         img.setCenterOfRotation(32,32);
         img.rotate(-(float)velocity.getAngle()+90);
