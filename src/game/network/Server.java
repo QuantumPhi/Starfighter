@@ -45,7 +45,7 @@ public class Server {
     
     public void killId(int id) {
         killIds.remove(new Integer(id));
-        players.remove(new EnemyShip(id));
+        players.remove(new EnemyShip(id, 10));
     }
     
     public void start() {

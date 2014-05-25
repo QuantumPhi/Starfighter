@@ -51,7 +51,7 @@ public class ClientNetworkHandler {
         
         handshake();
         
-        player = new PlayerShip(myClientId);
+        player = new PlayerShip(myClientId, 10);
         state.setPlayer(player);
         state.connected();
         

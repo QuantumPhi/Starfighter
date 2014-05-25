@@ -28,6 +28,8 @@ public abstract class Ship {
     public Ship(long i, double maxSpeed) {
         id = i;
         velocity = new Vector(maxSpeed);
+        turn = 2;
+        accel = 0.01;
     }
     
     public Ship(long i, ShipType type) {
