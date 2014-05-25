@@ -86,7 +86,6 @@ public class PlayerShip extends Ship {
         img.setCenterOfRotation(32,32);
         img.rotate(-(float)velocity.getAngle()+90);
         img.draw((float)x,(float)y,4.0f);
-        System.out.println(flare);
         g.setColor(new Color(1f,1f,1f,flare/100f));
         g.fill(new Ellipse((float)x+32,(float)y+32,48,48));
         renderBars(g);
