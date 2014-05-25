@@ -5,12 +5,13 @@ import game.ship.Ship;
 
 public final class DataPacket {
 
-    public static final int MAX_SIZE = 32;
+    public static final int MAX_SIZE = 40;
     
     public static final int ID = 0;
     public static final int X = 8;
     public static final int Y = 16;
     public static final int DIR = 24;
+    public static final int SPEED = 32;
     
     private byte[] data;
         
@@ -24,14 +25,12 @@ public final class DataPacket {
         add(s.getX(),X);
         add(s.getY(),Y);
         add(s.getAngle(),DIR);
+        add(s.getSpeed(),SPEED);
     }
     
     public void add(double d, int pos) {
         long l = Double.doubleToLongBits(d);
-        data[pos] = (byte) (l >> 48);
-        data[pos+1] = (byte) (l >> 32);
-        data[pos+2] = (byte) (l >> 16);
-        data[pos+3] = (byte) (l);
+        add(data,d,pos);
     }
     
     public double get(int pos) {
@@ -45,10 +44,8 @@ public final class DataPacket {
     
     public static void add(byte[] arr, double d, int pos) {
         long l = Double.doubleToLongBits(d);
-        arr[pos] = (byte) (l >> 48);
-        arr[pos+1] = (byte) (l >> 32);
-        arr[pos+2] = (byte) (l >> 16);
-        arr[pos+3] = (byte) (l);
+        for (int i=0;i<4;i++)
+            arr[pos+i] = (byte) (l >> 48-16*i);
     }
     
     public byte[] getBytes() {
@@ -63,5 +60,6 @@ public final class DataPacket {
         s.setX(get(X));
         s.setY(this.get(Y));
         s.setAngle(this.get(DIR));
+        s.setSpeed(this.get(SPEED));
     }
 }
