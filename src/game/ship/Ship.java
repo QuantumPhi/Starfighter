@@ -21,10 +21,14 @@ public abstract class Ship {
     protected double accel;
     protected double friction;
     
+    protected ShipType type;
+    
     protected Frame ship;
     protected Weapon[] weapons;
     
-    /** 
+    public ShipType getType() { return type; }
+    
+    /**
      * @param i ID for the ship 
      * @param maxSpeed Maximum speed of the ship
      **/
@@ -41,12 +45,14 @@ public abstract class Ship {
     }
     
     public Ship(long i, ShipType type) {
-        this(i, type.maxSpeed(), type.getTurn(), type.getAccel());
-        sprite = type.getSprite();
+        this(i,type.maxSpeed(),type.getTurn(),type.getAccel());
+        this.type = type;
     }
     
-    public Ship(DataPacket pkt) {
-        this((long)pkt.get(DataPacket.ID), pkt.get(DataPacket.SPEED), 0, 0);
+    public Ship(DataPacket p) {
+        id = (long)p.getClient();
+        type = ShipType.values()[p.getInt(DataPacket.TYPE)];
+        velocity = new Vector(type.maxSpeed());
     }
     
     public void resolveHit(Projectile p, int damage) {

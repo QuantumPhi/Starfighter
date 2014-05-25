@@ -13,7 +13,8 @@ public class PlayerShip extends Ship {
      * @param type Type of the ship
      **/
     public PlayerShip(long id, ShipType type) {
-        super(id, type);
+        super(id,type);
+        sprite = type.getSprite();
     }
     
     @Override

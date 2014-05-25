@@ -6,13 +6,14 @@ import java.nio.ByteBuffer;
 
 public final class DataPacket {
 
-    public static final int MAX_SIZE = 40;
+    public static final int MAX_SIZE = 44;
     
     public static final int ID = 0;
     public static final int X = 8;
     public static final int Y = 16;
     public static final int DIR = 24;
     public static final int SPEED = 32;
+    public static final int TYPE = 40;
     
     private byte[] data;
         
@@ -22,22 +23,46 @@ public final class DataPacket {
     
     public DataPacket(Ship s) {
         data = new byte[MAX_SIZE];
-        add(s.getID(),ID);
-        add(s.getX(),X);
-        add(s.getY(),Y);
-        add(s.getAngle(),DIR);
-        add(s.getSpeed(),SPEED);
+        addDouble(s.getID(),ID);
+        addDouble(s.getX(),X);
+        addDouble(s.getY(),Y);
+        addDouble(s.getAngle(),DIR);
+        addDouble(s.getSpeed(),SPEED);
+        addInt(s.getType().ordinal(),TYPE);
     }
     
-    public void add(double d, int pos) {
-        add(data,d,pos);
+    public final void add(int i, int pos) {
+        data[pos] = (byte) (i >> 24);
+        data[pos+1] = (byte) (i >> 16);
+        data[pos+2] = (byte) (i >> 8);
+        data[pos+3] = (byte) (i);
     }
     
-    public double get(int pos) {
+    public void addDouble(double d, int pos) {
+        addDouble(data,d,pos);
+    }
+    
+    public void addInt(int i, int pos) {
+        data[pos] = (byte) (i >> 24);
+        data[pos+1] = (byte) (i >> 16);
+        data[pos+2] = (byte) (i >> 8);
+        data[pos+3] = (byte) (i);
+    }
+    
+    public double getDouble(int pos) {
         return ByteBuffer.wrap(data,pos,8).getDouble();
     }
     
-    public static void add(byte[] arr, double d, int pos) {
+    public int getInt(int pos) {
+        int n = 0;
+        for (int i=0;i<4;i++) {
+            n <<= 8;
+            n |= (int)data[i+pos] & 0xFF;
+        }
+        return n;
+    }
+    
+    public static void addDouble(byte[] arr, double d, int pos) {
         ByteBuffer.wrap(arr,pos,8).putDouble(d);
     }
     
@@ -46,14 +71,13 @@ public final class DataPacket {
     }
     
     public double getClient() {
-        double d = get(ID);
-        return d;
+        return getDouble(ID);
     }
     
     public void update(EnemyShip s) {
-        s.setX(get(X));
-        s.setY(this.get(Y));
-        s.setAngle(this.get(DIR));
-        s.setSpeed(this.get(SPEED));
+        s.setX(getDouble(X));
+        s.setY(this.getDouble(Y));
+        s.setAngle(this.getDouble(DIR));
+        s.setSpeed(this.getDouble(SPEED));
     }
 }

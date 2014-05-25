@@ -74,9 +74,7 @@ public class ClientNetworkHandler {
                     
                     if (recvDataPacket.getClient() == myClientId)
                         continue;
-                    
-                    System.out.println(recvDataPacket.getClient());
-                    
+                                        
                     boolean updated = false;
 
                     for (EnemyShip e : enemies) {
