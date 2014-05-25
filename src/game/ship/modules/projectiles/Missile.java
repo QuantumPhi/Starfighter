@@ -67,6 +67,8 @@ public class Missile extends Projectile {
     public void update(int delta) {
         ex += velocity.getSpeed() * Math.cos(Math.toRadians(velocity.getAngle()));
         ey -= velocity.getSpeed() * Math.sin(Math.toRadians(velocity.getAngle()));
+        mask.setX(ex);
+        mask.setY(ey);
     }
     
     public void serverUpdate(int delta, List<EnemyShip> ships) {
@@ -121,4 +123,6 @@ public class Missile extends Projectile {
     public int getHullDamage() {
         return baseDamage + damage;
     }
+    
+    public Rectangle getMask() { return mask; }
 }

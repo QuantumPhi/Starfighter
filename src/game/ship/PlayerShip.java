@@ -68,6 +68,9 @@ public class PlayerShip extends Ship {
         
         x += velocity.getSpeed()*Math.cos(velocity.getAngle()*Math.PI/180);
         y -= velocity.getSpeed()*Math.sin(velocity.getAngle()*Math.PI/180);
+        
+        mask.setX(x);
+        mask.setY(y);
     }
 
     @Override
@@ -77,7 +80,7 @@ public class PlayerShip extends Ship {
         img.rotate(-(float)velocity.getAngle()+90);
         img.draw((float)x,(float)y,4.0f);
         if(flare == 2000) {
-            g.draw(/*Image*/, x, y, /*Alpha from flare*/);
+            //g.draw(/*Image*/, x, y, /*Alpha from flare*/);
         }
     }
     

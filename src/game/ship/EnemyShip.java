@@ -34,6 +34,8 @@ public class EnemyShip extends Ship {
     public void update(GameContainer container, int delta) {
         ex += velocity.getSpeed()*Math.cos(velocity.getAngle()*Math.PI/180);
         ey -= velocity.getSpeed()*Math.sin(velocity.getAngle()*Math.PI/180);
+        mask.setX(ex);
+        mask.setY(ey);
     }
     
     @Override
