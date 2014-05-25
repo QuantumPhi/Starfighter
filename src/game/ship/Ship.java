@@ -1,6 +1,5 @@
 package game.ship;
 
-import game.ship.modules.Energy;
 import game.ship.modules.Frame;
 import game.ship.modules.Weapon;
 import game.ship.util.Vector;
@@ -34,7 +33,7 @@ public abstract class Ship {
     
     public Ship(long i, ShipType type) {
         id = i;
-        
+        velocity = new Vector();
     }
     
     public void resolveHit(int damage) {

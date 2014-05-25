@@ -12,6 +12,8 @@ public class ResourceLoader {
         } catch (SlickException e) {
             throw new RuntimeException("Missing asset: " + filepath);
         }
+        image.setCenterOfRotation(8,8);
+        image.setFilter(Image.FILTER_NEAREST);
         return image;
     }
 }
