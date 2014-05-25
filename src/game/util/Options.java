@@ -11,7 +11,7 @@ public enum Options {
     
     SHOOT_LASER(Input.KEY_S),
     FIRE_WEAPON(Input.KEY_Z),
-    SWITCH_WEAPON(Input.KEY_SCROLL);
+    SWITCH_WEAPON(Input.KEY_E);
     
     private int key;
     

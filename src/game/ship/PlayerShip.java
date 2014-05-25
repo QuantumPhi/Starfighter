@@ -30,6 +30,12 @@ public class PlayerShip extends Ship {
             velocity.turnLeft(turn,delta);
         if(input.isKeyDown(Options.TURN_LEFT.key()))
             velocity.turnRight(turn,delta);
+        if(input.isKeyPressed(Options.SWITCH_WEAPON.key())) {
+            currentWeapon++;
+            currentWeapon %= weapons.length;
+        }
+        if(input.isKeyPressed(Options.FIRE_WEAPON.key()))
+            weapons[currentWeapon].fire(this);
         
         x += velocity.getSpeed()*Math.cos(velocity.getAngle()*Math.PI/180);
         y -= velocity.getSpeed()*Math.sin(velocity.getAngle()*Math.PI/180);

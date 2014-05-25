@@ -14,9 +14,6 @@ public abstract class Weapon {
         template = projectile;
     }
     
-    public abstract void update();
-    public abstract void render();
-    
     public abstract void fire(Ship s);
     
     public int getDamage() { return template.getBaseDamage(); }
