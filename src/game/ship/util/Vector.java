@@ -11,23 +11,21 @@ public class Vector {
     }
     
     public void accelerate(double accel, int delta) {
-        speed = speed + delta * accel <= speed ? 
-                speed + delta * accel : speed;
+        speed = Math.min(speed + accel * delta, maxSpd);
     }
     
     public void decelerate(double accel, int delta) {
-        speed = speed - delta * accel >= -speed / 2 ? 
-                speed - delta * accel : -speed / 2; 
+        speed = Math.max(speed - accel * delta, -maxSpd / 2);
     }
     
-    public void turnRight(int turn, int delta) {
-        angle = angle + delta * turn < 360 ?
-                angle + delta * turn : 0;
+    public void turnRight(double turn, int delta) {
+        angle += turn * delta;
+        angle %= 360;
     }
     
     public void turnLeft(int turn, int delta) {
-        angle = angle - delta * turn >= 0 ?
-                angle - delta * turn : 360 + (angle - delta * turn);
+        angle -= turn * delta;
+        angle = angle < 0 ? 360 + angle : angle;
     }
     
     public double getSpeed() { return speed; }
