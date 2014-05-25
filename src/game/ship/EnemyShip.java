@@ -1,6 +1,7 @@
 package game.ship;
 
 import game.network.DataPacket;
+import game.util.resource.ImageLibrary;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
@@ -30,6 +31,7 @@ public class EnemyShip extends Ship {
     
     @Override
     public void render(Graphics g) {
+        sprite = ImageLibrary.HUMAN_STARFIGHTER.getImage();
         g.drawImage(sprite,(float)ex,(float)ey);
     }
 }

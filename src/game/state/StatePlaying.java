@@ -4,8 +4,8 @@ import game.Game;
 import game.network.ClientNetworkHandler;
 import game.ship.EnemyShip;
 import game.ship.PlayerShip;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -34,7 +34,7 @@ public class StatePlaying extends BasicGameState {
     
     @Override
     public void enter(GameContainer container, StateBasedGame game) throws SlickException {
-        enemies = new ArrayList<EnemyShip>();
+        enemies = new CopyOnWriteArrayList<EnemyShip>();
         network = new ClientNetworkHandler(ip,port,player,enemies,this);
         network.start();
     }
@@ -45,7 +45,6 @@ public class StatePlaying extends BasicGameState {
             g.drawString("Connecting...",Game.VIEW_SIZE_X/2-60,Game.VIEW_SIZE_Y/2-20);
             return;
         }
-        System.out.println(player);
         player.render(g);
         for(EnemyShip e : enemies)
             e.render(g);
@@ -56,9 +55,10 @@ public class StatePlaying extends BasicGameState {
         if (!ready) {
             return;
         }
-        player.update(container, delta);
+        player.update(container,delta);
+        
         for(EnemyShip e : enemies)
-            e.update(container, delta);
+            e.update(container,delta);
     }
     
     @Override
