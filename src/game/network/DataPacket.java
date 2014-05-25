@@ -2,11 +2,13 @@ package game.network;
 
 import game.ship.EnemyShip;
 import game.ship.Ship;
+import game.ship.modules.projectiles.Laser;
+import game.ship.modules.projectiles.Projectile;
 import java.nio.ByteBuffer;
 
 public final class DataPacket {
 
-    public static final int MAX_SIZE = 44;
+    public static final int MAX_SIZE = 52;
     
     public static final int ID = 0;
     public static final int X = 8;
@@ -14,11 +16,23 @@ public final class DataPacket {
     public static final int DIR = 24;
     public static final int SPEED = 32;
     public static final int TYPE = 40;
+    public static final int PARENT = 44;
     
     private byte[] data;
         
     public DataPacket(byte[] data) {
         this.data = data;
+    }
+    
+    public DataPacket(Projectile p) {
+        data = new byte[MAX_SIZE];
+        addDouble(p.getID(),ID);
+        addDouble(p.getX(),X);
+        addDouble(p.getY(),Y);
+        addDouble(p.getAngle(),DIR);
+        addDouble(p.getSpeed(),SPEED);
+        addInt(p instanceof Laser ? -2 : -1,TYPE);
+        addDouble(p.getParentID(),PARENT);
     }
     
     public DataPacket(Ship s) {
@@ -76,8 +90,15 @@ public final class DataPacket {
     
     public void update(EnemyShip s) {
         s.setX(getDouble(X));
-        s.setY(this.getDouble(Y));
-        s.setAngle(this.getDouble(DIR));
-        s.setSpeed(this.getDouble(SPEED));
+        s.setY(getDouble(Y));
+        s.setAngle(getDouble(DIR));
+        s.setSpeed(getDouble(SPEED));
+    }
+    
+    public void update(Projectile p) {
+        p.setX(getDouble(X));
+        p.setY(getDouble(Y));
+        p.setAngle(getDouble(DIR));
+        p.setSpeed(getDouble(SPEED));
     }
 }
