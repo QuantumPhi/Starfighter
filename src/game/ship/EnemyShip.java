@@ -2,8 +2,6 @@ package game.ship;
 
 import game.network.DataPacket;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 
 public class EnemyShip extends Ship {
     
@@ -36,16 +34,5 @@ public class EnemyShip extends Ship {
         ey -= velocity.getSpeed()*Math.sin(velocity.getAngle()*Math.PI/180);
         mask.setX(ex);
         mask.setY(ey);
-    }
-    
-    @Override
-    public void render(Graphics g) {
-        if (sprite == null)
-            sprite = type.getSprite();
-        Image img = sprite.copy();
-        img.setCenterOfRotation(32,32);
-        img.rotate(-(float)velocity.getAngle()+90);
-        img.draw((float)ex,(float)ey,4.0f);
-        renderBars(g);
     }
 }
