@@ -1,6 +1,8 @@
 package game.ship.modules;
 
-public class Shield {
+import game.ship.properties.Regenerable;
+
+public class Shield implements Regenerable {
     
     private int maxInt;
     private int integrity;
@@ -21,6 +23,7 @@ public class Shield {
         integrity -= damage;
     }
     
+    @Override
     public void regenerate(int delta) {
         
     }
