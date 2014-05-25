@@ -41,9 +41,4 @@ public class PlayerShip extends Ship {
         img.rotate(-(float)velocity.getAngle()+90);
         img.draw((float)x,(float)y,4.0f);
     }
-    
-    @Override
-    public boolean equals(Object o) {
-        return id == ((Ship)o).getID();
-    }
 }

@@ -62,4 +62,11 @@ public abstract class Ship {
     public void setY(double py) { y = py; }
     public void setSpeed(double speed) { velocity.setSpeed(speed); }
     public void setAngle(double angle) { velocity.setAngle(angle); }
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || !(o instanceof Ship))
+            return false;
+        return id == ((Ship)o).getID();
+    }
 }
