@@ -28,5 +28,10 @@ public class Shield implements Regenerable {
         
     }
     
+    public void energize(int energy) {
+        integrity = integrity + energy <= maxInt ? 
+                integrity + energy : maxInt;
+    }
+    
     public int integrity() { return integrity; }
 }

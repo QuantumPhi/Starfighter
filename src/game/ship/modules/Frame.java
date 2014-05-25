@@ -22,4 +22,7 @@ public class Frame {
         shield.resolveHit(damage - dmg);
         hull.resolveHit(dmg);
     }
+    
+    public Shield getShield() { return shield; }
+    public Hull getHull() { return hull; }
 }

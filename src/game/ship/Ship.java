@@ -36,6 +36,11 @@ public abstract class Ship {
     public abstract void update(GameContainer container, int delta);
     public abstract void render(Graphics g);
     
+    public void regenShields() {
+        core.useEnergy(1);
+        ship.getShield().energize(1);
+    }
+    
     public long getID() { return id; }
     
     public double getX() { return x; }

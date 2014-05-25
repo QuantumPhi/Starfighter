@@ -34,12 +34,16 @@ public class StatePlaying extends BasicGameState {
     
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        
+        player.render(g);
+        for(EnemyShip e : enemies)
+            e.render(g);
     }
     
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        
+        player.update(container, delta);
+        for(EnemyShip e : enemies)
+            e.update(container, delta);
     }
     
     @Override
