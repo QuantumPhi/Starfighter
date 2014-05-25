@@ -1,5 +1,6 @@
-package game.ship.modules.weapons;
+package game.ship.modules.projectiles;
 
+import game.ship.modules.projectiles.Projectile;
 import org.newdawn.slick.Image;
 
 public class Laser extends Projectile {

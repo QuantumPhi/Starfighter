@@ -1,6 +1,6 @@
 package game.ship.modules;
 
-import game.ship.modules.weapons.Projectile;
+import game.ship.modules.projectiles.Projectile;
 
 public class Frame {
     

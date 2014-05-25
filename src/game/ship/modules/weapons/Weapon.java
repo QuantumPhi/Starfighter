@@ -1,5 +1,6 @@
 package game.ship.modules.weapons;
 
+import game.ship.modules.projectiles.Projectile;
 import game.ship.util.Vector;
 
 public abstract class Weapon {

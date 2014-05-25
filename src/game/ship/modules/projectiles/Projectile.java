@@ -1,4 +1,4 @@
-package game.ship.modules.weapons;
+package game.ship.modules.projectiles;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;

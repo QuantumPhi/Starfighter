@@ -3,7 +3,7 @@ package game.ship;
 import game.network.DataPacket;
 import game.ship.modules.Frame;
 import game.ship.modules.Weapon;
-import game.ship.modules.weapons.Projectile;
+import game.ship.modules.projectiles.Projectile;
 import game.ship.util.Vector;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
