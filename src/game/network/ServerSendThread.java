@@ -19,6 +19,7 @@ public class ServerSendThread implements Runnable {
     public ServerSendThread(List<EnemyShip> players,
             DatagramSocket socket, Server server, InetAddress destIp,
             int destPort, int id) {
+        System.out.println(destPort);
         this.players = players;
         this.socket = socket;
         this.server = server;

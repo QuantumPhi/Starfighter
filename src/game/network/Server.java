@@ -130,8 +130,11 @@ public class Server {
                     packet = new DataPacket(recvPacket.getData());
                     clientId = (int) packet.getClient();
                     
+                    //System.out.println(clientId);
+                    
                     updated = false;
                     for (EnemyShip e : players) {
+                        //System.out.println(e.getID());
                         if (e.getID() == clientId) {
                             ping.put(clientId,iteration);
                             packet.update(e);
@@ -144,6 +147,7 @@ public class Server {
                         continue;
                     
                     players.add(new EnemyShip(packet));
+                    System.out.println("Adding new enemy. ID: " + packet.get(DataPacket.ID));
                     
                     Runnable r = new ServerSendThread(players,socket,Server.this,
                             recvPacket.getAddress(),recvPacket.getPort(),clientId);
