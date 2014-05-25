@@ -62,6 +62,8 @@ public class PlayerShip extends Ship {
             }
         }
         
+        flare = Math.max(flare - delta, 0);
+        
         weapons[currentWeapon].update(delta);
         
         x += velocity.getSpeed()*Math.cos(velocity.getAngle()*Math.PI/180);
@@ -75,8 +77,7 @@ public class PlayerShip extends Ship {
         img.rotate(-(float)velocity.getAngle()+90);
         img.draw((float)x,(float)y,4.0f);
         if(flare == 2000) {
-            //g.draw(new Ellipse(img.getCenterOfRotationX(), img.getCenterOfRotationY(), (float)(mask.getRadius() * 4.0), (float)(mask.getRadius() * 4.0)));
-            g.fillOval((float)(x - mask.getRadius()*2), (float)(y - mask.getRadius()*2), (float)(mask.getRadius() * 12.0), (float)(mask.getRadius() * 12.0));
+            g.draw(/*Image*/, x, y, /*Alpha from flare*/);
         }
     }
     
