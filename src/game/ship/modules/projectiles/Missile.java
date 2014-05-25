@@ -5,6 +5,7 @@ import game.ship.Ship;
 import game.ship.util.Vector;
 import game.util.resource.ImageLibrary;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
 public class Missile extends Projectile {
     
@@ -27,6 +28,7 @@ public class Missile extends Projectile {
     public Missile(long id, Ship s, EnemyShip t) {
         this();
         velocity = new Vector(SPEED);
+        velocity.setSpeed(SPEED);
         velocity.setAngle(Math.toDegrees(Math.atan2(t.getY() - s.getY(), t.getX() - s.getX())));
         target = t;
     }
@@ -50,10 +52,16 @@ public class Missile extends Projectile {
     
     @Override
     public void update(int delta) {
+        x += velocity.getSpeed() * Math.cos(Math.toRadians(velocity.getAngle()));
+        y -= velocity.getSpeed() * Math.sin(Math.toRadians(velocity.getAngle()));
     }
 
     @Override
     public void render(Graphics g) {
+        Image img = sprite.copy();
+        img.setCenterOfRotation(32,32);
+        img.rotate(-(float)velocity.getAngle()+90);
+        img.draw((float)x,(float)y,4.0f);
     }
     
     @Override

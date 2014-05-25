@@ -8,7 +8,7 @@ import org.newdawn.slick.Image;
 
 public class Laser extends Projectile {
     
-    private static final double SPEED = 40;
+    private static final double SPEED = 30;
     private static long lasersCreated = 0;
     private int damage;
     
@@ -19,6 +19,7 @@ public class Laser extends Projectile {
     public Laser(long id, Ship s) {
         super(id, s.getID(), ImageLibrary.LASER.getImage());
         velocity = new Vector(SPEED);
+        velocity.setSpeed(SPEED);
         velocity.setAngle(s.getAngle());
     }
     
@@ -33,8 +34,8 @@ public class Laser extends Projectile {
 
     @Override
     public void update(int delta) {
-        x += velocity.getSpeed() * Math.cos(velocity.getAngle());
-        y -= velocity.getSpeed() * Math.sin(velocity.getAngle());
+        x += velocity.getSpeed() * Math.cos(Math.toRadians(velocity.getAngle()));
+        y -= velocity.getSpeed() * Math.sin(Math.toRadians(velocity.getAngle()));
     }
 
     @Override
