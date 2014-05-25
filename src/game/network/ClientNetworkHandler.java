@@ -81,17 +81,15 @@ public class ClientNetworkHandler {
                     
                     double dataPacketType = recvDataPacket.getDouble(DataPacket.TYPE);
                     
-                    System.out.println(dataPacketType);
-                    
                     if (recvDataPacket.getClient() == myClientId && dataPacketType>=0)
                         continue;
                     
-                    if (dataPacketType == -1) {
+                    if (dataPacketType == 42) {
                         projectiles.add(new Laser(recvDataPacket));
                         continue;
                     }
                     
-                    if (dataPacketType == -2) {
+                    if (dataPacketType == 1337) {
                         projectiles.add(new Missile(recvDataPacket));
                         continue;
                     }

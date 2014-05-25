@@ -7,8 +7,10 @@ import game.ship.modules.projectiles.Projectile;
 import java.nio.ByteBuffer;
 
 public final class DataPacket {
-
+    
     public static final int MAX_SIZE = 52;
+    
+    private byte[] data;
     
     public static final int ID = 0;
     public static final int X = 8;
@@ -17,13 +19,7 @@ public final class DataPacket {
     public static final int SPEED = 32;
     public static final int TYPE = 40;
     public static final int PARENT = 44;
-    
-    private byte[] data;
         
-    public DataPacket(byte[] data) {
-        this.data = data;
-    }
-    
     public DataPacket(Projectile p) {
         data = new byte[MAX_SIZE];
         addDouble(p.getID(),ID);
@@ -31,7 +27,7 @@ public final class DataPacket {
         addDouble(p.getY(),Y);
         addDouble(p.getAngle(),DIR);
         addDouble(p.getSpeed(),SPEED);
-        addInt(p instanceof Laser ? -2 : -1,TYPE);
+        addInt(p instanceof Laser ? 42 : 1337,TYPE);
         addDouble(p.getParentID(),PARENT);
     }
     
@@ -45,11 +41,8 @@ public final class DataPacket {
         addInt(s.getType().ordinal(),TYPE);
     }
     
-    public final void add(int i, int pos) {
-        data[pos] = (byte) (i >> 24);
-        data[pos+1] = (byte) (i >> 16);
-        data[pos+2] = (byte) (i >> 8);
-        data[pos+3] = (byte) (i);
+    public DataPacket(byte[] data) {
+        this.data = data;
     }
     
     public void addDouble(double d, int pos) {
